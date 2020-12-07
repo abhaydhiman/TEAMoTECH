@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login_page.css')}}">
+    
+</head>
+<body>
+    <div class="login-reg-panel">
+        <div class="login-info-box">
+            <h2>Have an account?</h2>
+            <!-- <p>{{error}}</p> -->
+            <label id="label-register" for="log-reg-show">Login</label>
+            <input type="radio" name="active-log-panel" id="log-reg-show" checked="checked">
+        </div>
+    
+        <div class="register-info-box">
+            <h2>Don't have an account?</h2>
+            <label id="label-login" for="log-login-show">Register</label>
+            <input type="radio" name="active-log-panel" id="log-login-show">
+        </div>
+    
+        <div class="white-panel">
+            <form name="login" action="/homePage" method="POST">
+                <div class="login-show">
+                    <h2>LOGIN</h2>
+                    <input type="email" placeholder="Email" name="email" required='required'>
+                    <input type="password" placeholder="Password" name="password" required='required'>
+                    <input type="submit" value="Login">
+                    <a href="">Forgot password?</a>
+                </div>
+            </form>
+            <form name="register" action="/home" method="POST">
+                <div class="register-show">
+                    <h2>REGISTER</h2>
+                    <input type="email" placeholder="Email" name="email" required='required'>
+                    <input type="password" placeholder="Password" name="password" required='required'>
+                    <input type="password" placeholder="Confirm Password" name="confirm_password" required='required'>
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='js/login_page.js')}}"></script>
+</body>
+</html>
