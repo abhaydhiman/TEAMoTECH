@@ -17,7 +17,7 @@ def login():
     
     if result:
         if result['Password'] == password:
-            return render_template('index.html')
+            return render_template('index.html', username = result['User_name'])
         return abort(401, "Password entered is not correct")
     return abort(401, "Email Does Not exist")
 
@@ -28,8 +28,8 @@ def register():
     confirm_password = request.form['confirm_password']
     
     if password == confirm_password:
-        obj.add_client(email, password, confirm_password)
-        return render_template('index.html', confirmPassword = confirm_password)
+        username = obj.add_client(email, password, confirm_password)
+        return render_template('index.html', username=username)
     return abort(400, "The Both password does not match")
 
 
