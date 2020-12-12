@@ -63,14 +63,35 @@
         </div>
         <div class="sidebar"></div>
         <div class="topbar"></div>
-    </div> <br>
-    <div class="container" style="margin-top: 50px;">
-        <div class="row custom-section d-flex align-items-center">
-            <div class="col-12 col-lg-4">
-                <h1>{{username}}</h1>
-            </div>
-        </div>
     </div>
+
+    <form action="." method="POST">
+        <section class="main2">
+            <div class="container">
+                <div class="row" id="add_to_me">
+                    <div class="col-md-3">
+                        <div class="box box-img01">
+                            <div class="slide-details">
+                                <p>TeamLeader</p>
+                                <input name="username" type="text" value="{{username}}" placeholder="User Name" required='required'>
+                                <input name="profession" type="text" placeholder="Profession" required='required'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" id="remove_this">
+                        <input class="minecard" type="button" id="more_fields" onclick="add_fields();" value="Add More" />
+                    </div>
+                </div>
+                <div class="row mt-4 pt-4 mb-3 pb-3 text-right">
+                    <div class="col-lg-12">
+                        <input class="myinput" type="text" placeholder="TeamName" required='required'>
+                        <input class="inputbutton" type="submit" value="CreateLobby">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -83,6 +104,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
         </script>
+    <script>
+        function add_fields() {
+            var remover = document.getElementById("remove_this");
+            remover.parentNode.removeChild(remover);
+
+            var d = document.getElementById("add_to_me");
+
+            d.innerHTML += "<div class='col-md-3'> <div div class='box box-img06' > <div class='slide-details'> <p>TeamMember</p> <input name='username' type='text' placeholder='User Name' required='required'> <input name='email' type='text' placeholder='email' required='required'> <input name='profession' type='text' placeholder='Profession' required='required'> </div> </div> </div><div class='col-sm-2' id='remove_this'> <input class='minecard' type = 'button' id = 'more_fields' onclick = 'add_fields();' value = 'Add More' /> </div >";
+        }
+    </script>
 </body>
 
 </html>
