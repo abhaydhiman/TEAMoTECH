@@ -13,6 +13,7 @@ class User:
     
     def add_client(self, email, password, confirm_password):
         username = email.split('@')[0]
+        self.email = email
         
         information.insert_one({
             'User_name': username,
@@ -24,7 +25,15 @@ class User:
         })
         return username
     
+    def check_client(self, email):
+        try:
+            information.find_one({'Email':email})
+            return True
+        except:
+            return False
+    
     def get_client(self, email):
+        self.email = email
         self.update_client(email, {"$set": {'LoginDate': self.current_date}})
         return information.find_one({'Email': email})
     
