@@ -65,7 +65,7 @@
         <div class="topbar"></div>
     </div>
 
-    <form action="." method="POST">
+    <form action="/lobby" method="POST">
         <section class="main2">
             <div class="container">
                 <div class="row" id="add_to_me">
@@ -73,8 +73,8 @@
                         <div class="box box-img01">
                             <div class="slide-details">
                                 <p>TeamLeader</p>
-                                <input name="username" type="text" value="{{username}}" placeholder="User Name" required='required'>
-                                <input name="profession" type="text" placeholder="Profession" required='required'>
+                                <input name="TeamLead_username" type="text" value="{{username}}" placeholder="User Name" required='required'>
+                                <input name="TeamLead_profession" type="text" placeholder="Profession" required='required'>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row mt-4 pt-4 mb-3 pb-3 text-right">
                     <div class="col-lg-12">
-                        <input class="myinput" type="text" placeholder="TeamName" required='required'>
+                        <input name="team_name" class="myinput" type="text" placeholder="TeamName" required='required'>
                         <input class="inputbutton" type="submit" value="CreateLobby">
                     </div>
                 </div>
