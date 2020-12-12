@@ -22,19 +22,20 @@ class User:
             'ConfirmPassword': confirm_password,
             'LoginDate': self.current_date,
             'AccountCreated': self.current_date,
+            'team_status': False,
         })
         return username
     
-    def check_client(self, email):
-        try:
-            information.find_one({'Email':email})
+    def check_client(self, param):
+        if information.find_one(param):
             return True
-        except:
+        else:
             return False
     
-    def get_client(self, email):
+    def get_client(self, email, update_login=True):
         self.email = email
-        self.update_client(email, {"$set": {'LoginDate': self.current_date}})
+        if update_login:
+            self.update_client(email, {"$set": {'LoginDate': self.current_date}})
         return information.find_one({'Email': email})
     
     def update_client(self, email, params):
