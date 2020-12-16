@@ -1,6 +1,6 @@
 from types import MethodDescriptorType
 from flask import Flask, render_template, request, redirect, abort
-from login_app.login import User
+from login_app.login import User, login_check, register_check
 
 app = Flask(__name__)
 
@@ -16,11 +16,9 @@ def login():
     password = request.form['password']
     result = obj.get_client(email)
     
-    if result:
-        if result['Password'] == password:
-            return render_template('index.html', username = result['User_name'])
-        return abort(401, "Password entered is not correct")
-    return abort(401, "Email Does Not exist")
+    # login_check performs all of the operations needed.
+    return login_check(password, result)
+
 
 @app.route('/home', methods=['POST'])
 def register():
@@ -28,12 +26,7 @@ def register():
     password = request.form['password']
     confirm_password = request.form['confirm_password']
     
-    if obj.check_client({'Email': email}):
-        return abort(400, "Email already exist")
-    if password == confirm_password:
-        username = obj.add_client(email, password, confirm_password)
-        return render_template('index.html', username=username)
-    return abort(400, "The Both password does not match")
+    return register_check(obj, email, password, confirm_password)
 
 @app.route('/lobby', methods=['POST'])
 def lobby():
@@ -64,19 +57,21 @@ def lobby():
     # Updating the creadentials for team members:-
     count_ls = [i for i in range(1, len(TeamMem_profession) + 1)]
     iterable_item = zip(count_ls, TeamMem_username, TeamMem_email, TeamMem_profession)
-    team_member_ls = []
+    team_member_dict = {}
     
     for counter, username, useremail, profession in iterable_item:
         member = "TeamMember_" + str(counter)
-        member_details = {member: {"User_name": username, "Email": useremail, "profession": profession}}
-        team_member_ls.append(member_details)
+        # member_details = {member: {"User_name": username, "Email": useremail, "profession": profession}}
+        team_member_dict[member] = {
+            "User_name": username, "Email": useremail, "profession": profession}
     
     updated_team_detail = {str(updated_team_number): {
-        "Team_members_details": team_member_ls, 'Team_name': Team_name}}
+        "Team_members_details": team_member_dict, 'Team_name': Team_name}}
     obj.update_client(email, {"$set": updated_team_detail})
     
-    # updated_param = {"Team_details": [{"Team_members_details": team_member_ls, 'Team_name': Team_name}]}
-    # obj.update_client(email, {"$set": updated_param})
+    # Create another collection for teams
+    obj.team_creation()
+    obj.create_team({Team_name: team_member_dict})
     
     return TeamLead_profession
 
