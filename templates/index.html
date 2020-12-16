@@ -70,12 +70,12 @@
         <div style="position: relative; top: 20rem">
             <div class="container">
                 <div class="row">
-                    {% for i in range(2) %}
+                    {% for i in range(team_number) %}
                     <div class="col-md-3">
                         <div class="box box-img01">
                             <div class="slide-details">
-                                <p>Design</p>
-                                <p>Graphic Designing</p>
+                                <p>{{ team_name_ls[i] }}</p>
+                                <p>Project Name</p>
                             </div>
                             <div class="user user-img01"></div>
                         </div>
