@@ -60,9 +60,19 @@ def login_check(password, result):
         if result['Password'] == password:
             if result['team_status']:
                 choice_value = True
+                team_number = result['team_number']
+                team_name_ls = [result[str(i)]['Team_name'] for i in range(1, team_number + 1)]
             else:
                 choice_value = False
-            return render_template('index.html', username=result['User_name'], choice=choice_value)
+                team_number = -1
+                team_name_ls = []
+                
+            return render_template('index.html',
+                                username=result['User_name'],
+                                choice=choice_value,
+                                team_number = team_number,
+                                team_name_ls = team_name_ls,
+                                )
         return abort(401, "Password entered is not correct")
     return abort(401, "Email Does Not exist")
 
@@ -95,7 +105,7 @@ def lobby_check(obj, result, email, context):
         obj.update_client(
             email, {"$set": {'team_number': updated_team_number}})
     else:
-        updated_team_number = 0
+        updated_team_number = 1
         obj.update_client(email, {"$set": {'team_status': True}})
         obj.update_client(
             email, {"$set": {'team_number': updated_team_number}})
