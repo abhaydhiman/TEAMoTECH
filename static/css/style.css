@@ -193,6 +193,7 @@ body {
 .minecard{
   position: absolute;
   top: 40%;
+  margin: 40px 0;
   padding: 8px 22px;
   color: #fff;
   background-color: #BA68C8;
