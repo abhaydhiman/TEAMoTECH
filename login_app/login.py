@@ -2,6 +2,8 @@
 
 import pymongo
 import datetime
+from flask import render_template, abort
+
 client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
 
 mydb = client['Main_project']
@@ -40,3 +42,34 @@ class User:
     
     def update_client(self, email, params):
         return information.update_one({'Email': email}, params)
+    
+    def team_creation(self):
+        self.team = mydb.Team
+    
+    def access_team(self, team_name):
+        return self.team.find_one(team_name)
+    
+    def create_team(self, param):
+        self.team.insert_one(param)
+    
+    def update_team(self, access_by, param):
+        return self.team.update_one(access_by, param)
+
+def login_check(password, result):
+    if result:
+        if result['Password'] == password:
+            if result['team_status']:
+                choice_value = True
+            else:
+                choice_value = False
+            return render_template('index.html', username=result['User_name'], choice=choice_value)
+        return abort(401, "Password entered is not correct")
+    return abort(401, "Email Does Not exist")
+
+def register_check(obj, email, password, confirm_password):
+    if obj.check_client({'Email': email}):
+        return abort(400, "Email already exist")
+    if password == confirm_password:
+        username = obj.add_client(email, password, confirm_password)
+        return render_template('index.html', username=username)
+    return abort(400, "The Both password does not match")
