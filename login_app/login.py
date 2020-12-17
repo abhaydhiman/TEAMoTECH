@@ -130,4 +130,4 @@ def lobby_check(obj, result, email, context):
     obj.team_creation()
     obj.create_team({Team_name: team_member_dict})
 
-    return TeamLead_profession
+    return render_template('lobby.html', Team_name=Team_name)
