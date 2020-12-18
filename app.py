@@ -31,6 +31,7 @@ def register():
 
 @app.route('/The_lobby', methods=['POST', 'GET'])
 def lobby():
+    email=obj.email
     if request.method == 'POST':
         email = obj.email
         TeamLead_username = request.form['TeamLead_username']
@@ -51,7 +52,7 @@ def lobby():
         }
     
         return lobby_check(obj, result, email, context)
-    return render_template('main_lobby.html')
+    return render_template('main_lobby.html', email=email)
 
 if __name__ == "__main__":
     app.run(debug=True)
