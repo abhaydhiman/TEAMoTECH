@@ -394,3 +394,32 @@
 
 .rounded-legend.legend-vertical ul li {
   margin-top: 1rem; }
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem; }
+
+h4,
+.h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2; }
+
+
+h4, .h4 {
+  font-size: 1.5rem; }
+
+
+h4 {
+  text-shadow: none; }
+
+h4,
+.h4 {
+  font-family: "ubuntu-medium", sans-serif; }
+
+h4, .h4 {
+  font-size: 1.13rem; }
+
+.template-demo > h4 {
+  border-top: 1px solid #ebedf2;
+  padding: 0.5rem 0 0; }
