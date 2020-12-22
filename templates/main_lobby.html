@@ -76,10 +76,18 @@
                         <div class="card-content text-gray">
                             <span class="card-title">Assign Task</span>
                             <p><i class="mdi mdi-blur"></i> Assign task to any team member</p>
-                            <p><i class="mdi mdi-blur"></i> Set time limit for each task</p>
-                            <input class="mt-4 mb-4" name="task_description" id="description" placeholder="Task Description">
-                            <input type="text" name="assign_to" placeholder="Assign to..." >
-                            <input class="mt-4 float-right" type="button" value="Assign">
+                            <p><i class="mdi mdi-blur"></i> Set deadlines for each task</p>
+                            <input class="mt-4 mb-4" name="task_description" id="description" placeholder="Task Description" required='required'>
+                            <input class="mb-4" type="text" name="assign_to" placeholder="Assign to..." required='required'>
+
+                            <p class="mt-4">
+                                <label>
+                                    <input id="checker" type="checkbox" />
+                                    <span>Add Deadline</span>
+                                </label>
+                            </p>
+                            <input class="mb-4" type="date" id="name2" name="name2" disabled=''/>
+                            <input class="input-button bg-gradient-primary mt-4 float-right" type="button" value="Assign">
                         </div>
                     </div>
                 </div>
@@ -187,6 +195,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+    <script>
+
+            document.getElementById('checker').onchange = function () {
+                if (this.checked == true) {
+                    document.getElementById("name2").disabled = false;
+                    document.getElementById("name2").focus();
+                }
+                else {
+                    document.getElementById("name2").disabled = true;
+                }
+            };
+
+    </script>
 
     <script>
         var ctx = document.getElementById('visit-sale-chart').getContext('2d');
