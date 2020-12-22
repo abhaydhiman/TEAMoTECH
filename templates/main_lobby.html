@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Lobby</title>
 
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.8.55/css/materialdesignicons.min.css"
+        integrity="sha512-x96qcyADhiw/CZY7QLOo7dB8i/REOEHZDhNfoDuJlyQ+yZzhdy91eAa4EkO7g3egt8obvLeJPoUKEKu5C5JYjA=="
+        crossorigin="anonymous" />
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -35,7 +40,19 @@
 
     <!-- --------------------- -->
 
-    <h1>{{email}}</h1>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col s12 m12 l12 stretch-card grid-margin">
+                <div class="card horizontal white darken-1">
+                    <div class="card-content black-text">
+                        <h4 class="font-weight-normal mb-3">{{email}} <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                        <h4 class="mb-4">I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Page Layout here -->
     <div class="row">
@@ -70,30 +87,36 @@
                 8-columns-wide on medium screens,
                 12-columns-wide on small screens  -->
             <div class="row">
-                <div class="col s12 m4">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                <div class="col s12 m4 stretch-card grid-margin">
+                    <div class="card bg-gradient-danger card-img-holder text-white">
+                        <div class="card-body">
+                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                            <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                            </h4>
+                            <h4 class="mb-4">$ 15,0000</h4>
+                            <h6 class="card-text">Increased by 60%</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m4">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                <div class="col s12 m4 stretch-card grid-margin">
+                    <div class="card bg-gradient-info card-img-holder text-white">
+                        <div class="card-body">
+                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                            <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                            </h4>
+                            <h4 class="mb-4">45,6334</h4>
+                            <h6 class="card-text">Decreased by 10%</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m4">
-                    <div class="card blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                <div class="col s12 m4 stretch-card grid-margin">
+                    <div class="card bg-gradient-success card-img-holder text-white">
+                        <div class="card-body">
+                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                            <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                            </h4>
+                            <h4 class="mb-4">95,5741</h4>
+                            <h6 class="card-text">Increased by 5%</h6>
                         </div>
                     </div>
                 </div>
@@ -158,7 +181,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <script>
-        Chart.defaults.global.legend.labels.usePointStyle = true;
         var ctx = document.getElementById('visit-sale-chart').getContext('2d');
         var gradientStrokeViolet = ctx.createLinearGradient(0, 0, 0, 181);
         gradientStrokeViolet.addColorStop(0, 'rgba(218, 140, 255, 1)');
@@ -220,8 +242,12 @@
             },
             options: {
                 legend: {
+                    responsive: true,
                     display: true,
+                    pointRadius: 0,
+                    borderWidth: 1,
                     position:'right',
+                    usePointStyle: true,
                     labels: {
                         fontColor: '#333',
                         usePointStyle: true
