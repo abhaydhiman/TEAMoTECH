@@ -54,6 +54,29 @@ class User:
     
     def update_team(self, access_by, param):
         return self.team.update_one(access_by, param)
+    
+    def task_done_progress(self):
+        total_task = 0
+        task_done = 0
+        
+        if task_done != 0:
+            ratio = task_done/ total_task
+            return ratio
+        return 0
+    
+    def task_pending(self):
+        total_task = 0
+        task_done = 0
+        
+        pending = total_task - task_done
+        
+        if pending != 0:
+            ratio = pending/ total_task
+            return ratio
+        return ratio
+    
+    
+
 
 def login_check(password, result):
     if result:
