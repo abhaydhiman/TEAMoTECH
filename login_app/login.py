@@ -1,8 +1,8 @@
 # Code for handling database for users that are logged in our site.
-from flask.helpers import flash
 import pymongo
 import datetime
 from flask import render_template, abort, url_for, redirect, request
+from datetime import date
 
 client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
 
@@ -73,9 +73,36 @@ class User:
         if pending != 0:
             ratio = pending/ total_task
             return ratio
-        return ratio
+        return 0
     
+    def today(self):
+        return date.today().strftime("%b-%d-%Y")
     
+    def date_task_tracker(self, task):
+        today = self.today()
+        
+        db = {}
+        db[today] = task
+        return db
+    
+    def today_task(self):
+        today_task_num = self.db.get('today_task_num', None)
+        
+        if today_task_num:
+            return today_task_num
+        else:
+            return 0
+    
+    def daily_task_num(self):
+        today = self.today()
+        today_task_num = self.db.get('today_task_num', None)
+        
+        if not today_task_num:
+            self.db['today_task_num'] = 0
+        
+        today_task_ls = self.db.get(today, None)
+        self.db['today_task_num'] = len(today_task_ls)
+            
 
 
 def login_check(password, result):
