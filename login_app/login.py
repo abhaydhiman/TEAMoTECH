@@ -1,7 +1,7 @@
 # Code for handling database for users that are logged in our site.
 import pymongo
 import datetime
-from flask import render_template, abort, url_for, redirect, request
+from flask import render_template, abort, url_for, redirect, request, flash
 from datetime import date
 
 client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
@@ -191,6 +191,8 @@ def lobby_check(obj, result, email, context):
     obj.create_team({Team_name: team_member_dict})
     
     # flash("Team Created Successfully!")
+    
+    flash('Created Team Successfully', 'succes')
     
     return redirect(url_for('login'))
 

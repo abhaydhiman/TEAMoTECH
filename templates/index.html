@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    
     <div class="main"></div>
     <div class="container">
         <header class="head my-3">
@@ -51,6 +52,7 @@
         </header>
     </div>
     <div class="container">
+        
         <div class="row custom-section d-flex align-items-center">
             <div class="col-12 col-lg-4">
                 <h3 style="font-size: 100px;">Team</h3>
@@ -69,6 +71,15 @@
     {% if choice %}
         <div style="position: relative; top: 20rem">
             <div class="container">
+                <center>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </center>
                 <h1><center>Your Teams</center></h1>
                 <div class="row">
                     {% for i in range(team_number) %}
