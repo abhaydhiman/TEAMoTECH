@@ -83,15 +83,20 @@
                 <h1><center>Your Teams</center></h1>
                 <div class="row">
                     {% for i in range(team_number) %}
-                    <div class="col-md-3">
-                        <div class="box box-img02">
-                            <div class="slide-details">
-                                <p>{{ team_name_ls[i] }}</p>
-                                <p>Project Name</p>
-                            </div>
-                            <div class="user user-img01"></div>
+                        <div class="col-md-3">
+                            <form id="{{i}}" action="{{url_for('main_lobby')}}" method="POST">
+                                <a href="#" onclick="document.getElementById('{{i}}').submit();" type="submit">
+                                    <div class="box box-img02">
+                                        <div class="slide-details">
+                                            <p>Team Name</p>
+                                            <p>{{ team_name_ls[i] }}</p>
+                                            <input name="team_name" type="text" style="display: none;" value="{{ team_name_ls[i] }}">
+                                        </div>
+                                        <div class="user user-img01"></div>
+                                    </div>
+                                </a>
+                            </form>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -121,7 +126,7 @@
                         <input class="minecard" type="button" id="more_fields" onclick="add_fields();" value="Add More" />
                     </div>
                 </div>
-                <div class="row mt-4 pt-4 mb-3 pb-3 text-right">
+                <div class="row mt-4 pt-4 mb-3 pb-3 text-right" style="position:relative; margin-top:6rem !important; padding-top: 10rem;">
                     <div class="col-lg-12">
                         <input name="team_name" class="myinput" type="text" placeholder="TeamName" required='required'>
                         <input class="inputbutton" type="submit" value="CreateLobby">

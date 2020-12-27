@@ -24,7 +24,7 @@ def login():
         return login_check(password, result)
     else:
         email = obj.email
-        result = obj.get_client(email)
+        result = obj.get_client(email, False)
         return part_of_homepage(result)
 
 
@@ -39,11 +39,6 @@ def register():
 
 @app.route('/The_lobby', methods=['POST'])
 def lobby():
-    # email = obj.email
-    # data = obj.get_client(email, False)
-    # username = data['User_name']
-    # profession = data['TeamLead_profession']
-    # team_name = ''
     email = obj.email
     TeamLead_username = request.form['TeamLead_username']
     TeamLead_profession = request.form['TeamLead_profession']
@@ -64,7 +59,11 @@ def lobby():
     }
 
     return lobby_check(obj, result, email, context)
-    # return render_template('main_lobby.html', username=username, profession=profession,team_name=team_name)
+
+@app.route('/main_lobby', methods=['POST'])
+def main_lobby():
+    team_name = request.form['team_name']
+    return f"hello {team_name}"
 
 
 if __name__ == "__main__":
