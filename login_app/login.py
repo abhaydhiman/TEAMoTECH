@@ -50,10 +50,15 @@ class User:
         return self.team.find_one(team_name)
     
     def create_team(self, param):
+        self.team_name = list(param.keys())[0]
         self.team.insert_one(param)
     
     def update_team(self, access_by, param):
         return self.team.update_one(access_by, param)
+    
+    def team_progress(self):
+        team_data = self.access_team(self.team_name)
+        
     
     def task_done_progress(self):
         total_task = 0
@@ -122,6 +127,7 @@ def login_check(password, result):
                                 choice=choice_value,
                                 team_number = team_number,
                                 team_name_ls = team_name_ls,
+                                email=result['Email'],
                                 )
         return abort(401, "Password entered is not correct")
     return abort(401, "Email Does Not exist")
@@ -182,4 +188,4 @@ def lobby_check(obj, result, email, context):
     
     # flash("Team Created Successfully!")
 
-    return redirect(request.url)
+    # return redirect(request.url)
