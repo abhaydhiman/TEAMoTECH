@@ -110,25 +110,29 @@ class User:
             
 
 
+def part_of_homepage(result):
+    if result['team_status']:
+        choice_value = True
+        team_number = result['team_number']
+        team_name_ls = [result[str(i)]['Team_name']
+                                    for i in range(1, team_number + 1)]
+    else:
+        choice_value = False
+        team_number = -1
+        team_name_ls = []
+        
+    return render_template('index.html',
+                        username=result['User_name'],
+                        choice=choice_value,
+                        team_number = team_number,
+                        team_name_ls = team_name_ls,
+                        email=result['Email'],
+                        )
+
 def login_check(password, result):
     if result:
         if result['Password'] == password:
-            if result['team_status']:
-                choice_value = True
-                team_number = result['team_number']
-                team_name_ls = [result[str(i)]['Team_name'] for i in range(1, team_number + 1)]
-            else:
-                choice_value = False
-                team_number = -1
-                team_name_ls = []
-                
-            return render_template('index.html',
-                                username=result['User_name'],
-                                choice=choice_value,
-                                team_number = team_number,
-                                team_name_ls = team_name_ls,
-                                email=result['Email'],
-                                )
+            return part_of_homepage(result)
         return abort(401, "Password entered is not correct")
     return abort(401, "Email Does Not exist")
 
@@ -187,5 +191,7 @@ def lobby_check(obj, result, email, context):
     obj.create_team({Team_name: team_member_dict})
     
     # flash("Team Created Successfully!")
+    
+    return redirect(url_for('login'))
 
     # return redirect(request.url)
