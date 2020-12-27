@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, abort, session
-from login_app.login import User, login_check, register_check, lobby_check
+from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage
 
 app = Flask(__name__)
 
@@ -12,15 +12,20 @@ obj = User()
 def index():
     return render_template('login_page.html')
 
-@app.route('/homePage', methods=['POST'])
+@app.route('/homePage', methods=['POST', 'GET'])
 def login():
-    email = request.form['email']
-    session['email'] = email
-    password = request.form['password']
-    result = obj.get_client(email)
-    
-    # login_check performs all of the operations needed.
-    return login_check(password, result)
+    if request.method == 'POST':
+        email = request.form['email']
+        session['email'] = email
+        password = request.form['password']
+        result = obj.get_client(email)
+        
+        # login_check performs all of the operations needed.
+        return login_check(password, result)
+    else:
+        email = obj.email
+        result = obj.get_client(email)
+        return part_of_homepage(result)
 
 
 @app.route('/home', methods=['POST'])
@@ -34,30 +39,33 @@ def register():
 
 @app.route('/The_lobby', methods=['POST'])
 def lobby():
-    email = request.form['email']
-    if 'email' in session:
-        if request.method == 'POST':
-            email = obj.email
-            TeamLead_username = request.form['TeamLead_username']
-            TeamLead_profession = request.form['TeamLead_profession']
-            Team_name = request.form['team_name']
-            TeamMem_username = request.form.getlist('username')
-            TeamMem_email = request.form.getlist('email')
-            TeamMem_profession = request.form.getlist('profession')
-            
-            result = obj.get_client(email, False)
-            context = {
-                "TeamLead_username": TeamLead_username,
-                "TeamLead_profession": TeamLead_profession,
-                "Team_name": Team_name,
-                "TeamMem_username": TeamMem_username,
-                "TeamMem_email": TeamMem_email,
-                "TeamMem_profession": TeamMem_profession,
-            }
-        
-            lobby_check(obj, result, email, context)
-            return render_template('main_lobby.html', email=TeamLead_username, team_name=obj.team_name)
-    return "You are not logged in"
+    # email = obj.email
+    # data = obj.get_client(email, False)
+    # username = data['User_name']
+    # profession = data['TeamLead_profession']
+    # team_name = ''
+    email = obj.email
+    TeamLead_username = request.form['TeamLead_username']
+    TeamLead_profession = request.form['TeamLead_profession']
+    Team_name = request.form['team_name']
+    # team_name = Team_name
+    TeamMem_username = request.form.getlist('username')
+    TeamMem_email = request.form.getlist('email')
+    TeamMem_profession = request.form.getlist('profession')
+    
+    result = obj.get_client(email, False)
+    context = {
+        "TeamLead_username": TeamLead_username,
+        "TeamLead_profession": TeamLead_profession,
+        "Team_name": Team_name,
+        "TeamMem_username": TeamMem_username,
+        "TeamMem_email": TeamMem_email,
+        "TeamMem_profession": TeamMem_profession,
+    }
+
+    return lobby_check(obj, result, email, context)
+    # return render_template('main_lobby.html', username=username, profession=profession,team_name=team_name)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
