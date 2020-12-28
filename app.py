@@ -63,7 +63,11 @@ def lobby():
 @app.route('/main_lobby', methods=['POST'])
 def main_lobby():
     team_name = request.form['team_name']
-    return f"hello {team_name}"
+    email = obj.email
+    data = obj.get_client(email, False)
+    username = data['User_name']
+    profession = data['TeamLead_profession']
+    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession)
 
 
 if __name__ == "__main__":
