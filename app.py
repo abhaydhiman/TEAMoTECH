@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, abort, session
-from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage
+from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner
 
 app = Flask(__name__)
 
@@ -63,6 +63,8 @@ def lobby():
 @app.route('/main_lobby', methods=['POST'])
 def main_lobby():
     team_name = request.form['team_name']
+    obj.set_team_name(team_name)
+    
     email = obj.email
     data = obj.get_client(email, False)
     username = data['User_name']
@@ -71,6 +73,17 @@ def main_lobby():
     print(whole_progress)
     
     return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress)
+
+
+@app.route('/assign_task', methods=['POST'])
+def assign_task():
+    task_description = request.form['task_description']
+    assign_to = request.form['assign_to']
+    team_name = obj.team_name
+    
+    task_assigner(obj, team_name, task_description, assign_to)
+    
+    return f"hello ji {task_description} {assign_to}, {team_name}"
 
 
 if __name__ == "__main__":

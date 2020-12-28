@@ -46,8 +46,12 @@ class User:
     def team_creation(self):
         self.team = mydb.Team
     
+    def set_team_name(self, team_name):
+        self.team = mydb.Team
+        self.team_name = team_name
+    
     def access_team(self, team_name):
-        return self.team.find_one(team_name)
+        return self.team.find_one({'team_name': team_name})
     
     def create_team(self, param):
         self.team_name = list(param.keys())[0]
@@ -188,7 +192,7 @@ def lobby_check(obj, result, email, context):
 
     # Create another collection for teams
     obj.team_creation()
-    obj.create_team({Team_name: team_member_dict})
+    obj.create_team({'team_name': Team_name, 'members_name': TeamMem_username, 'leader_name': TeamLead_username})
     
     # flash("Team Created Successfully!")
     
@@ -197,3 +201,9 @@ def lobby_check(obj, result, email, context):
     return redirect(url_for('login'))
 
     # return redirect(request.url)
+
+def task_assigner(obj, team_name, task_description, person):
+    print(obj.access_team(team_name))
+    
+    set_task = {person : task_description}
+    obj.update_team({'team_name': team_name}, {"$set": set_task})
