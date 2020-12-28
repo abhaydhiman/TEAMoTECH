@@ -129,7 +129,7 @@
                 <div class="row mt-4 pt-4 mb-3 pb-3 text-right" style="position:relative; margin-top:6rem !important; padding-top: 10rem;">
                     <div class="col-lg-12">
                         <input name="team_name" class="myinput" type="text" placeholder="TeamName" required='required'>
-                        <input class="inputbutton" type="submit" value="CreateLobby">
+                        <input onclick="lobbyFunc();" class="inputbutton" type="submit" value="CreateLobby">
                     </div>
                 </div>
             </div>
@@ -151,6 +151,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
         </script>
+
+    <script>
+        function lobbyFunc() {
+            alert("Team Created Successfully");
+        }
+    </script>
+
     <script>
         function add_fields() {
             var remover = document.getElementById("remove_this");

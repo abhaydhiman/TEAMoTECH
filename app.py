@@ -67,7 +67,10 @@ def main_lobby():
     data = obj.get_client(email, False)
     username = data['User_name']
     profession = data['TeamLead_profession']
-    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession)
+    whole_progress = obj.task_done_progress()
+    print(whole_progress)
+    
+    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress)
 
 
 if __name__ == "__main__":
