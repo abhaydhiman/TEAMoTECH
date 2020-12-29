@@ -70,9 +70,11 @@ def main_lobby():
     username = data['User_name']
     profession = data['TeamLead_profession']
     whole_progress = obj.task_done_progress()
-    print(whole_progress)
+    total_task_num = obj.total_task
+    today_task_num = obj.today_task()
+    # print(whole_progress)
     
-    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress)
+    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num)
 
 
 @app.route('/assign_task', methods=['POST'])
@@ -81,6 +83,7 @@ def assign_task():
     assign_to = request.form['assign_to']
     team_name = obj.team_name
     
+    obj.date_task_tracker(team_name, task_description)
     task_assigner(obj, team_name, task_description, assign_to)
     total_task_assigner(obj, team_name, task_description)
     
