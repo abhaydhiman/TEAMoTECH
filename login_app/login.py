@@ -223,12 +223,12 @@ def task_assigner(obj, team_name, task_description, person):
         get_person = data.get(person, None)
         
         if not get_person:
-            set_task = {person : [task_description]}
+            set_task = {person : {"description": [task_description]}}
             obj.update_team({'team_name': team_name}, {"$set": set_task})
         else:
-            ls = get_person
+            ls = get_person['description']
             ls.append(task_description)
-            set_task = {person: ls}
+            set_task = {person: {"description": ls}}
             obj.update_team({'team_name': team_name}, {"$set": set_task})
     else:
         print("Person is not in your team!!")
