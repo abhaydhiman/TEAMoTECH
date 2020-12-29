@@ -235,11 +235,12 @@ def total_task_assigner(obj, team_name, task_description):
     get_total_task = main_data.get('total_task', None)
     
     if not get_total_task:
-        data = {'total_task': {'description': [task_description]}}
+        data = {'total_task': {'description': [task_description], 'total_task': 1}}
     else:
         ls = get_total_task['description']
         ls.append(task_description)
-        data = {'total_task': {'description': [task_description]}}
+        total_task_length = len(ls)
+        data = {'total_task': {'description': ls, 'total_task': total_task_length}}
     
     obj.update_team({'team_name': team_name}, {"$set": data})
     
@@ -254,11 +255,12 @@ def task_assigner(obj, team_name, task_description, person):
         get_person = data.get(person, None)
         
         if not get_person:
-            set_task = {person : {"description": [task_description]}}
+            set_task = {person : {"description": [task_description], 'total_task': 1}}
         else:
             ls = get_person['description']
             ls.append(task_description)
-            set_task = {person: {"description": ls}}
+            total_task_length = len(ls)
+            set_task = {person: {"description": ls, 'total_task': total_task_length}}
             
         obj.update_team({'team_name': team_name}, {"$set": set_task})
         
