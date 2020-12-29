@@ -215,6 +215,37 @@ def lobby_check(obj, result, email, context):
 
     # return redirect(request.url)
 
+def total_task_counter(obj, team_name, fetcher=None):
+    data = obj.access_team(team_name)
+    
+    if fetcher:
+        if len(fetcher) == 1:
+            fetcher = fetcher[0]
+            total_task_ls = data[fetcher]
+            task_len = len(total_task_ls)
+            updated_value = {fetcher: {'total_task': task_len}}
+            obj.update_team({'team_name': team_name}, {'$set': updated_value})
+        else:
+            pass
+    else:
+        pass
+
+def total_task_assigner(obj, team_name, task_description):
+    main_data = obj.access_team(team_name)
+    get_total_task = main_data.get('total_task', None)
+    
+    if not get_total_task:
+        data = {'total_task': {'description': [task_description]}}
+    else:
+        ls = get_total_task['description']
+        ls.append(task_description)
+        data = {'total_task': {'description': [task_description]}}
+    
+    obj.update_team({'team_name': team_name}, {"$set": data})
+    
+    
+    # total_task_counter(obj, team_name, ['total_task'])
+
 def task_assigner(obj, team_name, task_description, person):
     data = obj.access_team(team_name)
     person_exist = obj.is_person_exist(team_name, person)
@@ -224,11 +255,13 @@ def task_assigner(obj, team_name, task_description, person):
         
         if not get_person:
             set_task = {person : {"description": [task_description]}}
-            obj.update_team({'team_name': team_name}, {"$set": set_task})
         else:
             ls = get_person['description']
             ls.append(task_description)
             set_task = {person: {"description": ls}}
-            obj.update_team({'team_name': team_name}, {"$set": set_task})
+            
+        obj.update_team({'team_name': team_name}, {"$set": set_task})
+        
+        # total_task_counter(obj, team_name, [person])
     else:
         print("Person is not in your team!!")
