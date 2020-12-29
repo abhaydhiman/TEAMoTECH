@@ -60,6 +60,19 @@ class User:
     def update_team(self, access_by, param):
         return self.team.update_one(access_by, param)
     
+    def is_person_exist(self, team_name, person):
+        team_data = self.access_team(team_name)
+        members_name = team_data['members_name']
+        leader_name = team_data['leader_name']
+        
+        if person in members_name:
+            return True
+        else:
+            if person == leader_name:
+                return True
+            else:
+                return False
+    
     def team_progress(self):
         team_data = self.access_team(self.team_name)
         
@@ -203,7 +216,19 @@ def lobby_check(obj, result, email, context):
     # return redirect(request.url)
 
 def task_assigner(obj, team_name, task_description, person):
-    print(obj.access_team(team_name))
+    data = obj.access_team(team_name)
+    person_exist = obj.is_person_exist(team_name, person)
     
-    set_task = {person : task_description}
-    obj.update_team({'team_name': team_name}, {"$set": set_task})
+    if person_exist:
+        get_person = data.get(person, None)
+        
+        if not get_person:
+            set_task = {person : [task_description]}
+            obj.update_team({'team_name': team_name}, {"$set": set_task})
+        else:
+            ls = get_person
+            ls.append(task_description)
+            set_task = {person: ls}
+            obj.update_team({'team_name': team_name}, {"$set": set_task})
+    else:
+        print("Person is not in your team!!")
