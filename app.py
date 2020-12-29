@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, abort, session
-from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner
+from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner
 
 app = Flask(__name__)
 
@@ -82,6 +82,7 @@ def assign_task():
     team_name = obj.team_name
     
     task_assigner(obj, team_name, task_description, assign_to)
+    total_task_assigner(obj, team_name, task_description)
     
     return f"hello ji {task_description} {assign_to}, {team_name}"
 
