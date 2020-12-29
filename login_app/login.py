@@ -74,12 +74,20 @@ class User:
                 return False
     
     def team_progress(self):
-        team_data = self.access_team(self.team_name)
+        # today = self.today()
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        total_task = team_data.get('total_task', None)
         
+        if not total_task:
+            self.total_task = 0
+        else:
+            self.total_task = total_task['total_task']
     
     def task_done_progress(self):
-        total_task = 0
-        task_done = 0
+        self.team_progress()
+        total_task = self.total_task
+        task_done = 2
         
         if task_done != 0:
             ratio = task_done/ total_task
@@ -100,31 +108,33 @@ class User:
     def today(self):
         return date.today().strftime("%b-%d-%Y")
     
-    def date_task_tracker(self, task):
+    def date_task_tracker(self, team_name, task):
         today = self.today()
+        db = self.access_team(team_name)
+        today_check = db.get(today, None)
         
-        db = {}
-        db[today] = task
-        return db
+        if not today_check:
+            data = {today: {'description': [task], 'total_task': 1}}
+        else:
+            ls = db[today]['description']
+            ls.append(task)
+            data = {today: {'description': ls, 'total_task': len(ls)}}
+        
+        self.update_team({'team_name': team_name}, {"$set": data})
     
     def today_task(self):
-        today_task_num = self.db.get('today_task_num', None)
-        
-        if today_task_num:
-            return today_task_num
-        else:
-            return 0
-    
-    def daily_task_num(self):
+        """
+        used to get total number of task for today
+        """
         today = self.today()
-        today_task_num = self.db.get('today_task_num', None)
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        today_data = team_data.get(today, None)
         
-        if not today_task_num:
-            self.db['today_task_num'] = 0
-        
-        today_task_ls = self.db.get(today, None)
-        self.db['today_task_num'] = len(today_task_ls)
-            
+        if not today_data:
+            return 0
+        else:
+            return today_data['total_task']
 
 
 def part_of_homepage(result):
@@ -215,21 +225,6 @@ def lobby_check(obj, result, email, context):
 
     # return redirect(request.url)
 
-def total_task_counter(obj, team_name, fetcher=None):
-    data = obj.access_team(team_name)
-    
-    if fetcher:
-        if len(fetcher) == 1:
-            fetcher = fetcher[0]
-            total_task_ls = data[fetcher]
-            task_len = len(total_task_ls)
-            updated_value = {fetcher: {'total_task': task_len}}
-            obj.update_team({'team_name': team_name}, {'$set': updated_value})
-        else:
-            pass
-    else:
-        pass
-
 def total_task_assigner(obj, team_name, task_description):
     main_data = obj.access_team(team_name)
     get_total_task = main_data.get('total_task', None)
@@ -243,9 +238,6 @@ def total_task_assigner(obj, team_name, task_description):
         data = {'total_task': {'description': ls, 'total_task': total_task_length}}
     
     obj.update_team({'team_name': team_name}, {"$set": data})
-    
-    
-    # total_task_counter(obj, team_name, ['total_task'])
 
 def task_assigner(obj, team_name, task_description, person):
     data = obj.access_team(team_name)
@@ -264,6 +256,5 @@ def task_assigner(obj, team_name, task_description, person):
             
         obj.update_team({'team_name': team_name}, {"$set": set_task})
         
-        # total_task_counter(obj, team_name, [person])
     else:
         print("Person is not in your team!!")
