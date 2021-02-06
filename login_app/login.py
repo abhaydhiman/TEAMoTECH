@@ -148,8 +148,27 @@ class User:
         yesterday = today - timedelta(days=1)
         today_task_num = self.today_task()
         yesterday_task_num = self.today_task(yesterday)
-        print(today_task_num)
-        print(yesterday_task_num)
+        
+        diff = yesterday_task_num - today_task_num
+        total = yesterday_task_num + today_task_num
+        
+        if diff < 0:
+            # performance increased
+            diff = -diff
+            res = (diff / total) * 100
+            ans = 'Increased'
+        
+        elif diff > 0:
+            # performance decreased
+            res = (diff / total) * 100
+            ans = 'Decreased'
+        
+        else:
+            # performance same as previous
+            res = 0
+            ans = 'Neutral'
+        
+        return (res, ans)
 
 
 def part_of_homepage(result):
