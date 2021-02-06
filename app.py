@@ -72,11 +72,9 @@ def main_lobby():
     whole_progress = obj.task_done_progress()
     total_task_num = obj.total_task
     today_task_num = obj.today_task()
-    today = obj.today_perform()
-    print(today)
-    # print(whole_progress)
+    card_1_data = obj.today_perform()
     
-    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num)
+    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num, card_1_data=card_1_data,)
 
 
 @app.route('/assign_task', methods=['POST'])
