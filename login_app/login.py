@@ -89,7 +89,7 @@ class User:
         total_task = self.total_task
         task_done = 2
         
-        if task_done != 0:
+        if total_task != 0:
             ratio = task_done/ total_task
             return ratio
         return 0
