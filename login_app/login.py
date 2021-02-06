@@ -2,7 +2,7 @@
 import pymongo
 import datetime
 from flask import render_template, abort, url_for, redirect, request, flash
-from datetime import date
+from datetime import date, timedelta
 
 client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
 
@@ -122,11 +122,14 @@ class User:
         
         self.update_team({'team_name': team_name}, {"$set": data})
     
-    def today_task(self):
+    def today_task(self, date=None):
         """
-        used to get total number of task for today
+        used to get total number of task for today or for the specific date entered.
         """
-        today = self.today()
+        if date is not None:
+            today = date
+        else:
+            today = self.today()
         team_name = self.team_name
         team_data = self.access_team(team_name)
         today_data = team_data.get(today, None)
@@ -135,6 +138,18 @@ class User:
             return 0
         else:
             return today_data['total_task']
+    
+    def today_perform(self):
+        '''
+        this function is used to find today's performance of the team;
+        comparing today with yesterday and providing performance accordingly.
+        '''
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+        today_task_num = self.today_task()
+        yesterday_task_num = self.today_task(yesterday)
+        print(today_task_num)
+        print(yesterday_task_num)
 
 
 def part_of_homepage(result):
