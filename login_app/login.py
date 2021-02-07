@@ -145,7 +145,7 @@ class User:
         comparing today with yesterday and providing performance accordingly.
         '''
         today = date.today()
-        yesterday = today - timedelta(days=1)
+        yesterday = (today - timedelta(days=1)).strftime("%b-%d-%Y")
         today_task_num = self.today_task()
         yesterday_task_num = self.today_task(yesterday)
         
@@ -169,6 +169,14 @@ class User:
             ans = 'Neutral'
         
         return (res, ans)
+    
+    def getAllDetails(self):
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        members = team_data.get('members_name', None)
+        
+        if members is not None:
+            pass
 
 
 def part_of_homepage(result):
