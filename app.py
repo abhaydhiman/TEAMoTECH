@@ -73,8 +73,9 @@ def main_lobby():
     total_task_num = obj.total_task
     today_task_num = obj.today_task()
     card_1_data = obj.today_perform()
+    task_details = obj.getAllDetails()
     
-    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num, card_1_data=card_1_data,)
+    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num, card_1_data=card_1_data, task_details=task_details, )
 
 
 @app.route('/assign_task', methods=['POST'])
