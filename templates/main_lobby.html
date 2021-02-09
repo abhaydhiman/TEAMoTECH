@@ -264,50 +264,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for details in task_details %}
                                         <tr>
                                             <td>
-                                                David Grey
+                                                {{details.name}}
                                             </td>
-                                            <td> Fund is not recieved </td>
+                                            <td> {{details.task}} </td>
                                             <!-- <td>
                                                 <label class="badge badge-gradient-success">DONE</label>
                                             </td> -->
                                             <td> Dec 5, 2017 </td>
                                             <td><input class="input-button bg-gradient-success float-right" type="submit" value="Done"></td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                Stella Johnson
-                                            </td>
-                                            <td> High loading time </td>
-                                            <!-- <td>
-                                                <label class="badge badge-gradient-warning">PROGRESS</label>
-                                            </td> -->
-                                            <td> Dec 12, 2017 </td>
-                                            <td> <input class="input-button bg-gradient-success float-right" type="submit" value="Done"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Marina Michel
-                                            </td>
-                                            <td> Website down for one week </td>
-                                            <!-- <td>
-                                                <label class="badge badge-gradient-info">ON HOLD</label>
-                                            </td> -->
-                                            <td> Dec 16, 2017 </td>
-                                            <td> <input class="input-button bg-gradient-success float-right" type="submit" value="Done"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                John Doe
-                                            </td>
-                                            <td> Loosing control on server </td>
-                                            <!-- <td>
-                                                <label class="badge badge-gradient-danger">REJECTED</label>
-                                            </td> -->
-                                            <td> Dec 3, 2017 </td>
-                                            <td> <input class="input-button bg-gradient-success float-right" type="submit" value="Done"> </td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
