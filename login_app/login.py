@@ -9,6 +9,14 @@ client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
 mydb = client['Main_project']
 information = mydb.theApp
 
+class Tasker:
+    '''
+    Same as Node class
+    '''
+    def __init__(self, name, task = None) -> None:
+        self.task = task
+        self.name = name
+
 class User:
     def __init__(self) -> None:
         self.current_date = datetime.datetime.today().strftime('%d-%b-%Y')
@@ -175,8 +183,37 @@ class User:
         team_data = self.access_team(team_name)
         members = team_data.get('members_name', None)
         
+        # Creating an empty list used to store name and the task for each person
+        ls = []
+        
+        # Adding members and their task into the list
         if members is not None:
-            pass
+            
+            # fetching members list in the database
+            for member in members:
+                member_detail = team_data.get(member, None)
+                
+                # getting further details for the particular member if exists
+                if member_detail is not None:
+                    for tasks in member_detail['description']:
+                        
+                        # Creating a Node and appending it into the list
+                        tasker = Tasker(member, tasks)
+                        ls.append(tasker)
+        
+        # getting leader's name and further details
+        leader = team_data['leader_name']
+        leader_detail = team_data.get(leader, None)
+        
+        # if any task is assigned to the leader then it must be appended into the list
+        if leader_detail is not None:
+            for tasks in leader_detail['description']:
+                
+                # Creating a Node and appending it into the list
+                tasker = Tasker(leader, tasks)
+                ls.append(tasker)
+        
+        return ls
 
 
 def part_of_homepage(result):
