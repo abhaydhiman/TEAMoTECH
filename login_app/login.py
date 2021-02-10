@@ -17,6 +17,9 @@ class Tasker:
         self.task = task
         self.name = name
 
+def Descriptor(description, deadline):
+    return {'task': description, 'deadline': deadline}
+
 class User:
     def __init__(self) -> None:
         self.current_date = datetime.datetime.today().strftime('%d-%b-%Y')
@@ -201,7 +204,7 @@ class User:
                     for i in range(length - 1, -1, -1):
                         
                         # Creating a Node and appending it into the list
-                        task = desc[i]
+                        task = desc[i]['task']
                         tasker = Tasker(member, task)
                         ls.append(tasker)
         
@@ -217,7 +220,7 @@ class User:
             for i in range(length - 1, -1, -1):
                 
                 # Creating a Node and appending it into the list
-                task = desc[i]
+                task = desc[i]['task']
                 tasker = Tasker(leader, task)
                 ls.append(tasker)
         
@@ -326,18 +329,27 @@ def total_task_assigner(obj, team_name, task_description):
     
     obj.update_team({'team_name': team_name}, {"$set": data})
 
-def task_assigner(obj, team_name, task_description, person):
+def deadliner(deadline):
+    if deadline is None:
+        return User().today()
+    
+    deadline = datetime.datetime.strptime(
+        deadline, '%Y-%m-%d').strftime('%b-%d-%Y')
+    return deadline
+
+def task_assigner(obj, team_name, task_description, person, deadline):
     data = obj.access_team(team_name)
     person_exist = obj.is_person_exist(team_name, person)
     
     if person_exist:
         get_person = data.get(person, None)
+        deadline = deadliner(deadline)
         
         if not get_person:
-            set_task = {person : {"description": [task_description], 'total_task': 1}}
+            set_task = {person : {"description": [Descriptor(task_description, deadline)], 'total_task': 1}}
         else:
             ls = get_person['description']
-            ls.append(task_description)
+            ls.append(Descriptor(task_description, deadline))
             total_task_length = len(ls)
             set_task = {person: {"description": ls, 'total_task': total_task_length}}
             
