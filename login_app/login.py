@@ -176,7 +176,7 @@ class User:
             res = 0
             ans = 'Neutral'
         
-        return (res, ans)
+        return (round(res, 2), ans)
     
     def getAllDetails(self):
         team_name = self.team_name
@@ -195,10 +195,14 @@ class User:
                 
                 # getting further details for the particular member if exists
                 if member_detail is not None:
-                    for tasks in member_detail['description']:
+                    desc = member_detail['description']
+                    length = len(desc)
+                    
+                    for i in range(length - 1, -1, -1):
                         
                         # Creating a Node and appending it into the list
-                        tasker = Tasker(member, tasks)
+                        task = desc[i]
+                        tasker = Tasker(member, task)
                         ls.append(tasker)
         
         # getting leader's name and further details
@@ -207,10 +211,14 @@ class User:
         
         # if any task is assigned to the leader then it must be appended into the list
         if leader_detail is not None:
-            for tasks in leader_detail['description']:
+            desc = leader_detail['description']
+            length = len(desc)
+            
+            for i in range(length - 1, -1, -1):
                 
                 # Creating a Node and appending it into the list
-                tasker = Tasker(leader, tasks)
+                task = desc[i]
+                tasker = Tasker(leader, task)
                 ls.append(tasker)
         
         return ls
