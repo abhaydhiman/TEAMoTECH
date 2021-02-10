@@ -24,6 +24,19 @@ class Caller:
         return {'team_name': team_name, 'username': username,
                 'profession': profession, 'whole_progress': whole_progress,'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
                 }
+    
+    def for_assign_task(self):
+        task_description = request.form['task_description']
+        assign_to = request.form['assign_to']
+        team_name = obj.team_name
+        is_person_exist = obj.is_person_exist(team_name, assign_to)
+        
+        if is_person_exist:
+            obj.date_task_tracker(team_name, task_description)
+            task_assigner(obj, team_name, task_description, assign_to)
+            total_task_assigner(obj, team_name, task_description)
+        
+        return f"hello ji {task_description} {assign_to}, {team_name}"
 
 
 @app.route('/')
@@ -88,18 +101,8 @@ def main_lobby():
 
 @app.route('/assign_task', methods=['POST'])
 def assign_task():
-    task_description = request.form['task_description']
-    assign_to = request.form['assign_to']
-    team_name = obj.team_name
-    
-    is_person_exist = obj.is_person_exist(team_name, assign_to)
-    
-    if is_person_exist:
-        obj.date_task_tracker(team_name, task_description)
-        task_assigner(obj, team_name, task_description, assign_to)
-        total_task_assigner(obj, team_name, task_description)
-    
-    return f"hello ji {task_description} {assign_to}, {team_name}"
+    caller = Caller().for_assign_task()
+    return caller
 
 
 if __name__ == "__main__":
