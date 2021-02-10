@@ -13,8 +13,9 @@ class Tasker:
     '''
     Same as Node class
     '''
-    def __init__(self, name, task = None) -> None:
+    def __init__(self, name, deadline, task = None) -> None:
         self.task = task
+        self.deadline = deadline
         self.name = name
 
 def Descriptor(description, deadline):
@@ -205,7 +206,8 @@ class User:
                         
                         # Creating a Node and appending it into the list
                         task = desc[i]['task']
-                        tasker = Tasker(member, task)
+                        deadline = desc[i]['deadline']
+                        tasker = Tasker(member, deadline, task)
                         ls.append(tasker)
         
         # getting leader's name and further details
@@ -221,7 +223,8 @@ class User:
                 
                 # Creating a Node and appending it into the list
                 task = desc[i]['task']
-                tasker = Tasker(leader, task)
+                deadline = desc[i]['deadline']
+                tasker = Tasker(leader, deadline, task)
                 ls.append(tasker)
         
         return ls
