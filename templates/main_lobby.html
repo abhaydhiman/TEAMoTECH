@@ -45,12 +45,12 @@
             <div class="col s12 m12 l12 stretch-card grid-margin">
                 <div class="card horizontal text-gray card-outline-success">
                     <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">{{team_name.title()}} <i class="mdi mdi-account-check mdi-24px float-right"></i></h4>
+                        <h4 class="font-weight-normal mb-3">{{context.team_name.title()}} <i class="mdi mdi-account-check mdi-24px float-right"></i></h4>
                         
-                        <h4 class="mb-3" style="font-family: 'Courier New', Courier, monospace;">{{username}},{{profession}}</h4>
+                        <h4 class="mb-3" style="font-family: 'Courier New', Courier, monospace;">{{context.username}},{{context.profession}}</h4>
 
                         <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" style="width: {{whole_progress}}%" aria-valuenow="25"
+                            <div class="progress-bar bg-gradient-success" role="progressbar" style="width: {{context.whole_progress}}%" aria-valuenow="25"
                                 aria-valuemin="0" aria-valuemax="90"></div>
                         </div>
                     </div>
@@ -186,8 +186,8 @@
                             <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Today's Task Number<i class="mdi mdi-chart-line mdi-24px float-right"></i>
                             </h4>
-                            <h4 class="mb-4">{{today_task_num}}</h4>
-                            <h6 class="card-text">{{card_1_data[1]}} by {{card_1_data[0]}}%</h6>
+                            <h4 class="mb-4">{{context.today_task_num}}</h4>
+                            <h6 class="card-text">{{context.card_1_data[1]}} by {{context.card_1_data[0]}}%</h6>
                         </div>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
                             <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Total Task Number<i class="mdi mdi-diamond mdi-24px float-right"></i>
                             </h4>
-                            <h4 class="mb-4">{{total_task_num}}</h4>
+                            <h4 class="mb-4">{{context.total_task_num}}</h4>
                             <h6 class="card-text">Pending Task number</h6>
                         </div>
                     </div>
@@ -264,7 +264,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for details in task_details %}
+                                        {% for details in context.task_details %}
                                         <tr>
                                             <td>
                                                 {{details.name}}
