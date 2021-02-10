@@ -8,6 +8,24 @@ app.secret_key = os.urandom(24)
 
 obj = User()
 
+class Caller:
+    def for_main_lobby(self, team_name):
+        obj.set_team_name(team_name)
+        email = obj.email
+        data = obj.get_client(email, False)
+        username = data['User_name']
+        profession = data['TeamLead_profession']
+        whole_progress = obj.task_done_progress()
+        total_task_num = obj.total_task
+        today_task_num = obj.today_task()
+        card_1_data = obj.today_perform()
+        task_details = obj.getAllDetails()
+        
+        return {'team_name': team_name, 'username': username,
+                'profession': profession, 'whole_progress': whole_progress,'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
+                }
+
+
 @app.route('/')
 def index():
     return render_template('login_page.html')
@@ -63,19 +81,9 @@ def lobby():
 @app.route('/main_lobby', methods=['POST'])
 def main_lobby():
     team_name = request.form['team_name']
-    obj.set_team_name(team_name)
-    
-    email = obj.email
-    data = obj.get_client(email, False)
-    username = data['User_name']
-    profession = data['TeamLead_profession']
-    whole_progress = obj.task_done_progress()
-    total_task_num = obj.total_task
-    today_task_num = obj.today_task()
-    card_1_data = obj.today_perform()
-    task_details = obj.getAllDetails()
-    
-    return render_template('main_lobby.html', team_name=team_name, username=username, profession=profession, whole_progress=whole_progress, total_task_num=total_task_num, today_task_num=today_task_num, card_1_data=card_1_data, task_details=task_details, )
+    caller = Caller()
+    context = caller.for_main_lobby(team_name)
+    return render_template('main_lobby.html', context=context)
 
 
 @app.route('/assign_task', methods=['POST'])
