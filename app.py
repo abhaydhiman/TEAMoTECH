@@ -109,5 +109,13 @@ def assign_task():
     return caller
 
 
+@app.route('/task_done', methods=['POST', 'GET'])
+def taskDone():
+    print('hi')
+    team_name = obj.team_name
+    caller = Caller()
+    context = caller.for_main_lobby(team_name)
+    return render_template('main_lobby.html', context=context)
+
 if __name__ == "__main__":
     app.run(debug=True)
