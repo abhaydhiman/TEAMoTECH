@@ -366,3 +366,7 @@ def task_assigner(obj, team_name, task_description, person, deadline):
         
     else:
         print("Person is not in your team!!")
+
+
+def removeTask(team_name, name, task):
+    pass
