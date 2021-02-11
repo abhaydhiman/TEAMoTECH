@@ -17,6 +17,10 @@ class Tasker:
         self.task = task
         self.deadline = deadline
         self.name = name
+    
+    def add_index(self, index):
+        self.index = index
+
 
 def Descriptor(description, deadline):
     return {'task': description, 'deadline': deadline}
@@ -208,6 +212,7 @@ class User:
                         task = desc[i]['task']
                         deadline = desc[i]['deadline']
                         tasker = Tasker(member, deadline, task)
+                        tasker.add_index(len(ls))
                         ls.append(tasker)
         
         # getting leader's name and further details
@@ -225,6 +230,7 @@ class User:
                 task = desc[i]['task']
                 deadline = desc[i]['deadline']
                 tasker = Tasker(leader, deadline, task)
+                tasker.add_index(len(ls))
                 ls.append(tasker)
         
         return ls
