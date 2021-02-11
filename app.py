@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, abort, session
-from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner
+from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner, removeTask
 
 app = Flask(__name__)
 
@@ -59,6 +59,11 @@ class Caller:
         }
         
         return lobby_check(obj, result, email, context)
+    
+    def for_task_done(self, team_name, name, task):
+        removeTask(team_name, name, task)
+        context = self.for_main_lobby(team_name)
+        return context
 
 
 @app.route('/')
@@ -111,10 +116,11 @@ def assign_task():
 
 @app.route('/task_done', methods=['POST', 'GET'])
 def taskDone():
-    print('hi')
+    data = request.args.get('jsdata')
+    print(data)
     team_name = obj.team_name
     caller = Caller()
-    context = caller.for_main_lobby(team_name)
+    context = caller.for_task_done(team_name, 1, 2)
     return render_template('main_lobby.html', context=context)
 
 if __name__ == "__main__":
