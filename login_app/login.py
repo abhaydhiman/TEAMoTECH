@@ -374,11 +374,17 @@ def removeTask(team_name, name, task):
     team_data = user.access_team(team_name)
     name_detail = team_data[name]
     task_desc = name_detail['description']
+    task_done = name_detail.get('task_done', None)
     
     for task_data in task_desc:
         if task_data['task'] == task:
             print(task)
             task_desc.remove(task_data)
     
-    value = {name: {'description': task_desc, 'total_task': len(task_desc)}}
+    if task_done is None:
+        value = {name: {'description': task_desc, 'total_task': len(task_desc), 'task_done': 1}}
+    else:
+        task_done += 1
+        value = {name: {'description': task_desc,
+                        'total_task': len(task_desc), 'task_done': task_done}}
     user.update_team({"team_name": team_name}, {"$set": value})
