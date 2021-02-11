@@ -16,7 +16,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/lobby.css')}}">
 </head>
-<body>
+<body id="body">
 
     <!-- ---------------------- 
         Navbar started ----------->
@@ -247,7 +247,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="task-details-id">
                 <div class="col s12 grid-margin">
                     <div class="card card-outline-primary">
                         <div class="card-body">
@@ -266,15 +266,10 @@
                                     <tbody>
                                         {% for details in context.task_details %}
                                         <tr>
-                                            <td>
-                                                {{details.name}}
-                                            </td>
-                                            <td> {{details.task}} </td>
-                                            <!-- <td>
-                                                <label class="badge badge-gradient-success">DONE</label>
-                                            </td> -->
+                                            <td id="name_{{details.index}}" > {{details.name}} </td>
+                                            <td id="task_{{details.index}}" > {{details.task}} </td>
                                             <td> {{details.deadline}} </td>
-                                            <td><input class="input-button bg-gradient-success float-right" type="submit" value="Done"></td>
+                                            <td><input class="input-button bg-gradient-success float-right" type="submit" id="{{details.index}}" onclick="taskDetails(this.id)" value="Done"></td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -306,6 +301,26 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+    <!-- ------------------------- -->
+    <script>
+    function taskDetails(clicked_id){
+        var name = document.getElementById("name_"+ String(clicked_id)).innerHTML;
+        var task = document.getElementById("task_" + String(clicked_id)).innerHTML;
+        var data = {name: name, task: task}
+        $.ajax({
+            url: 'task_done',
+            type: 'get',
+            data: {jsdata: data},
+            success: function(response) {
+                $('#body').html(response);
+            }
+        });
+        return false;
+    }
+    </script>
+    <!-- ------------------------- -->
+
     <script>
 
             document.getElementById('checker').onchange = function () {
