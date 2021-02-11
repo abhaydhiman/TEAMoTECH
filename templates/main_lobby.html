@@ -266,8 +266,8 @@
                                     <tbody>
                                         {% for details in context.task_details %}
                                         <tr>
-                                            <td id="name_{{details.index}}" > {{details.name}} </td>
-                                            <td id="task_{{details.index}}" > {{details.task}} </td>
+                                            <td id="name_{{details.index}}" >{{details.name}}</td>
+                                            <td id="task_{{details.index}}" >{{details.task}}</td>
                                             <td> {{details.deadline}} </td>
                                             <td><input class="input-button bg-gradient-success float-right" type="submit" id="{{details.index}}" onclick="taskDetails(this.id)" value="Done"></td>
                                         </tr>
@@ -311,7 +311,7 @@
         $.ajax({
             url: 'task_done',
             type: 'get',
-            data: {jsdata: data},
+            data: {jsdata: JSON.stringify(data)},
             success: function(response) {
                 $('#body').html(response);
             }
