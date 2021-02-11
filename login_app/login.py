@@ -369,4 +369,16 @@ def task_assigner(obj, team_name, task_description, person, deadline):
 
 
 def removeTask(team_name, name, task):
-    pass
+    user = User()
+    user.set_team_name(team_name)
+    team_data = user.access_team(team_name)
+    name_detail = team_data[name]
+    task_desc = name_detail['description']
+    
+    for task_data in task_desc:
+        if task_data['task'] == task:
+            print(task)
+            task_desc.remove(task_data)
+    
+    value = {name: {'description': task_desc, 'total_task': len(task_desc)}}
+    user.update_team({"team_name": team_name}, {"$set": value})
