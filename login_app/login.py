@@ -418,6 +418,20 @@ def removeTask(team_name, name, task):
     task_desc = name_detail['description']
     task_done = name_detail.get('task_done', None)
     total_task_done = team_data.get('total_task_done', None)
+    today = user.today()
+    today_data = team_data.get(today, None)
+    
+    if today_data is None:
+        user.update_team({"team_name": team_name}, {'$set': {today: {'description': [], 'total_task': 0, 'task_done': 1}}})
+    else:
+        desc = today_data['description']
+        total_task = today_data['total_task']
+        done = today_data.get('task_done', None)
+        if done is None:
+            done = 1
+        else:
+            done += 1
+        user.update_team({"team_name": team_name}, {'$set': {today: {'description': desc, 'total_task': total_task, 'task_done': done}}})
     
     for task_data in task_desc:
         if task_data['task'] == task:
