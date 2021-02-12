@@ -21,10 +21,11 @@ class Caller:
         card_1_data = obj.today_perform()
         task_details = obj.getAllDetails()
         report_details = obj.getReportDetails()
+        pending_task_num = obj.getPendingTask()
         
         return {'team_name': team_name, 'username': username,
                 'profession': profession, 'whole_progress': whole_progress,'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
-                'report_details': report_details,
+                'report_details': report_details, 'pending_task_num': pending_task_num,
                 }
     
     def for_assign_task(self):
