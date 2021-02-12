@@ -242,6 +242,30 @@ class User:
                 ls.append(tasker)
         
         return ls
+    
+    def getReportDetails(self):
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        members = team_data.get('members_name', None)
+        leader = team_data.get('leader_name', None)
+        report_detail = []
+        
+        if members is not None:
+            members.append(leader)
+        else:
+            members = leader
+        
+        for names in members:
+            name_detail = team_data.get(names, None)
+            if name_detail is not None:
+                task_done = name_detail.get('task_done', None)
+                total_task = name_detail.get('total_task', None)
+                report = self.task_pending(total_task, task_done, False)
+                color = self.getColorName(report)
+                report_dict = {'name': names, 'report': report, 'color': color}
+                report_detail.append(report_dict)
+        return report_detail
+
 
 def part_of_homepage(result):
     if result['team_status']:
