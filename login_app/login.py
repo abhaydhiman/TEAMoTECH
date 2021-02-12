@@ -110,6 +110,17 @@ class User:
             return ratio
         return 0
     
+    def getPendingTask(self):
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        total_task = team_data.get('total_task', None)
+        task_done = team_data.get('total_task_done', None)
+        
+        if total_task:
+            total_task = total_task['total_task']
+        
+        return self.task_pending(total_task, task_done)
+    
     def task_pending(self, total_task, task_done, return_pending=True):
         if total_task is None or task_done is None:
             return 0
