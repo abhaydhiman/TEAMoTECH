@@ -110,16 +110,24 @@ class User:
             return ratio
         return 0
     
-    def task_pending(self):
-        total_task = 0
-        task_done = 0
+    def task_pending(self, total_task, task_done, return_pending=True):
+        if total_task is None or task_done is None:
+            return 0
         
-        pending = total_task - task_done
-        
-        if pending != 0:
-            ratio = pending/ total_task
-            return ratio
-        return 0
+        if return_pending:
+            pending = total_task - task_done
+            return pending
+        else:
+            performance = (task_done/ total_task)*100
+            return round(performance, 2)
+    
+    def getColorName(self, number):
+        if 0 <= number <= 25:   return "danger"
+        elif number <= 40:      return "warning"
+        elif number <= 55:      return "primary"
+        elif number <= 75:      return "success"
+        elif number <= 100:     return "info"
+    
     
     def today(self):
         return date.today().strftime("%b-%d-%Y")
@@ -234,7 +242,6 @@ class User:
                 ls.append(tasker)
         
         return ls
-
 
 def part_of_homepage(result):
     if result['team_status']:
