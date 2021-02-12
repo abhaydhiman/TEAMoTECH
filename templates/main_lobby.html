@@ -154,8 +154,8 @@
                             <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Today's Performance <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                             </h4>
-                            <h4 class="mb-4">ratio</h4>
-                            <h6 class="card-text">Decreased by 10%</h6>
+                            <h4 class="mb-4">{{context.sec_card_data.today_ratio}}</h4>
+                            <h6 class="card-text">{{context.sec_card_data.res}} by {{context.sec_card_data.percentage}}%</h6>
                         </div>
                     </div>
                 </div>
