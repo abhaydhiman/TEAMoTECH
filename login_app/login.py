@@ -174,6 +174,60 @@ class User:
         else:
             return today_data['total_task']
     
+    def sec_card_data(self):
+        today = date.today()
+        yesterday = (today - timedelta(days=1)).strftime("%b-%d-%Y")
+        done_task_today = self.today_task_done()
+        done_task_yesterday = self.today_task_done(yesterday)
+        total_task_today = self.today_task()
+        total_task_yesterday = self.today_task(yesterday)
+        
+        if total_task_today == 0:
+            today_ratio = 0
+        else:
+            today_ratio = round((done_task_today/ total_task_today), 2)
+        if total_task_yesterday == 0:
+            yesterday_ratio = 0
+        else:
+            yesterday_ratio = round((done_task_yesterday/ total_task_yesterday), 2)
+        
+        diff = yesterday_ratio - today_ratio
+        total = yesterday_ratio + today_ratio
+        if diff < 0:
+            diff = -diff
+            res = 'Increased'
+            ans = diff / total
+        elif diff > 0:
+            res = 'Decreased'
+            ans = diff/ total
+        else:
+            res = 'Neutral'
+            ans = diff/ total
+        
+        percentage = round((ans * 100), 2)
+        return {'today_ratio': today_ratio, 'res': res, 'percentage': percentage}
+    
+    def today_task_done(self, date=None):
+        """
+        used to get total number of task done for today or for the specific date entered.
+        """
+        if date is not None:
+            today = date
+        else:
+            today = self.today()
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        today_data = team_data.get(today, None)
+        
+        if not today_data:
+            return 0
+        else:
+            done_num = today_data.get('task_done', None)
+            if done_num is None:
+                return 0
+            else:
+                return done_num
+    
     def today_perform(self):
         '''
         this function is used to find today's performance of the team;
@@ -435,7 +489,6 @@ def removeTask(team_name, name, task):
     
     for task_data in task_desc:
         if task_data['task'] == task:
-            print(task)
             task_desc.remove(task_data)
     
     if task_done is None:
