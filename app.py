@@ -30,18 +30,22 @@ class Caller:
                 }
     
     def for_assign_task(self):
-        task_description = request.form['task_description']
-        assign_to = request.form['assign_to']
-        deadline = request.form.get('deadline', None)
+        task_description = request.args.get('task_description')
+        assign_to = request.args.get('assign_to')
+        deadline = request.args.get('deadline')
         team_name = obj.team_name
         is_person_exist = obj.is_person_exist(team_name, assign_to)
+        
+        if deadline is '':
+            deadline = None
         
         if is_person_exist:
             obj.date_task_tracker(team_name, task_description)
             task_assigner(obj, team_name, task_description, assign_to, deadline)
             total_task_assigner(obj, team_name, task_description)
         
-        return f"hello ji {task_description} {assign_to}, {team_name}"
+        context = self.for_main_lobby(team_name)
+        return render_template('main_lobby.html', context=context)
     
     def for_lobby(self):
         email = obj.email
@@ -114,7 +118,7 @@ def main_lobby():
     return render_template('main_lobby.html', context=context)
 
 
-@app.route('/assign_task', methods=['POST'])
+@app.route('/assign_task', methods=['POST', 'GET'])
 def assign_task():
     caller = Caller().for_assign_task()
     return caller
