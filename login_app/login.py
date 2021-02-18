@@ -153,7 +153,11 @@ class User:
         else:
             ls = db[today]['description']
             ls.append(task)
-            data = {today: {'description': ls, 'total_task': len(ls)}}
+            total_task = db[today]['total_task'] + 1
+            task_done = db[today].get('task_done', None)
+            if task_done is None:
+                task_done = 0
+            data = {today: {'description': ls, 'total_task': total_task, 'task_done': task_done}}
         
         self.update_team({'team_name': team_name}, {"$set": data})
     
@@ -202,7 +206,7 @@ class User:
             ans = diff/ total
         else:
             res = 'Neutral'
-            ans = diff/ total
+            ans = 0
         
         percentage = round((ans * 100), 2)
         return {'today_ratio': today_ratio, 'res': res, 'percentage': percentage}
@@ -455,8 +459,12 @@ def task_assigner(obj, team_name, task_description, person, deadline):
         else:
             ls = get_person['description']
             ls.append(Descriptor(task_description, deadline))
-            total_task_length = len(ls)
-            set_task = {person: {"description": ls, 'total_task': total_task_length}}
+            total_task_length = get_person['total_task'] + 1
+            task_done_data = get_person.get('task_done', None)
+            
+            if task_done_data is None:
+                task_done_data = 0
+            set_task = {person: {"description": ls, 'total_task': total_task_length, 'task_done': task_done_data}}
             
         obj.update_team({'team_name': team_name}, {"$set": set_task})
         
@@ -492,11 +500,13 @@ def removeTask(team_name, name, task):
             task_desc.remove(task_data)
     
     if task_done is None:
-        value = {name: {'description': task_desc, 'total_task': len(task_desc) + 1, 'task_done': 1}}
+        total_task_name = name_detail.get('total_task', None)
+        value = {name: {'description': task_desc, 'total_task': total_task_name, 'task_done': 1}}
     else:
         task_done += 1
+        total_task_name = name_detail.get('total_task', None)
         value = {name: {'description': task_desc,
-                        'total_task': len(task_desc) + 1, 'task_done': task_done}}
+                        'total_task': total_task_name, 'task_done': task_done}}
     
     if total_task_done is None:
         number = 1
