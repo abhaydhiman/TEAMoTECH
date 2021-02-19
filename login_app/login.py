@@ -334,6 +334,35 @@ class User:
                 report_dict = {'name': names, 'report': report, 'color': color}
                 report_detail.append(report_dict)
         return report_detail
+    
+    def prevSevDays(self):
+        today = date.today()
+        days_list = [None]*7
+        total_task_list = [None]*7
+        comleted_task_list = [None]*7
+        day_names = ['Mon', 'Tue', 'Wed', 'Thrus', 'Fri', 'Sat', 'Sun']
+        
+        for i in range(0, 7):
+            dates = (today - timedelta(days=i)).strftime("%b-%d-%Y")
+            
+            # getting days name
+            day = (today - timedelta(days=i)).weekday()
+            days_list[6 - i] = day_names[day]
+            
+            # getting total number of task
+            total_task = self.today_task(dates)
+            total_task_list[6 - i] = total_task
+            
+            # getting total number of task done
+            completed_task = self.today_task_done(dates)
+            comleted_task_list[6 - i] = completed_task
+        
+        prev_days_data = {
+            'day_names': days_list,
+            'total_task': total_task_list,
+            'task_completed': comleted_task_list,
+        }
+        return prev_days_data
 
 
 def part_of_homepage(result):
