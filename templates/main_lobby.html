@@ -328,13 +328,16 @@
         gradientStrokeRed.addColorStop(1, 'rgba(254, 112, 150, 1)');
         var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
 
+        var days = {{context.seven_days.get("day_names") | tojson}}
+        console.log(days)
+
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['WEEK 1', 'WEEK 2', 'WEEK 3', 'WEEK 4', 'WEEK 5'],
+                labels: days,
                 datasets: [
                     {
-                        label: "TOTAL TSK",
+                        label: "TOTAL TASK",
                         borderColor: gradientStrokeViolet,
                         backgroundColor: gradientStrokeViolet,
                         hoverBackgroundColor: gradientStrokeViolet,
@@ -343,7 +346,7 @@
                         fill: false,
                         borderWidth: 1,
                         fill: 'origin',
-                        data: [20, 40, 15, 35, 25]
+                        data: {{context.seven_days.get('total_task') | tojson}}
                     },
                     {
                         label: "COMPLETED",
@@ -355,19 +358,7 @@
                         fill: false,
                         borderWidth: 1,
                         fill: 'origin',
-                        data: [40, 30, 20, 10, 50]
-                    },
-                    {
-                        label: "PERFORMANCE",
-                        borderColor: gradientStrokeBlue,
-                        backgroundColor: gradientStrokeBlue,
-                        hoverBackgroundColor: gradientStrokeBlue,
-                        legendColor: gradientLegendBlue,
-                        pointRadius: 0,
-                        fill: false,
-                        borderWidth: 1,
-                        fill: 'origin',
-                        data: [70, 10, 30, 40, 25]
+                        data: {{context.seven_days.get('task_completed') | tojson}}
                     }
                 ]
             },
