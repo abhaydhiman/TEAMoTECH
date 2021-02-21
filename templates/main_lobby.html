@@ -213,7 +213,6 @@
                                         <tr>
                                             <th> Assignee </th>
                                             <th> Task </th>
-                                            <!-- <th> Status </th> -->
                                             <th> Deadline </th>
                                             <th></th>
                                         </tr>
@@ -329,7 +328,6 @@
         var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
 
         var days = {{context.seven_days.get("day_names") | tojson}}
-        console.log(days)
 
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -437,9 +435,18 @@
         gradientStrokeGreen.addColorStop(1, 'rgba(132, 217, 210, 1)');
         var gradientLegendGreen = 'linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))';
 
+        var totalTask = {{ context.total_task_num | tojson}};
+        var completed = {{ context.pending_task_num | tojson}};
+        var pending = totalTask - completed;
+        var total = totalTask + completed + pending;
+        var perTotalTask = Math.round((totalTask/ total)*100);
+        var perCompleted = Math.round((completed/ total)*100);
+        var perPending = Math.round((pending/ total)*100);
+        
+
         var trafficChartData = {
             datasets: [{
-                data: [30, 30, 40],
+                data: [perTotalTask, perCompleted, perPending],
                 backgroundColor: [
                     gradientStrokeBlue,
                     gradientStrokeGreen,
@@ -464,9 +471,9 @@
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: [
-                'Search Engines',
-                'Direct Click',
-                'Bookmarks Click',
+                'Total Task',
+                'Completed',
+                'Pending',
             ]
         };
         var trafficChartOptions = {
