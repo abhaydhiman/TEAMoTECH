@@ -103,11 +103,13 @@ class User:
     def task_done_progress(self):
         self.team_progress()
         total_task = self.total_task
-        task_done = 2
+        team_name = self.team_name
+        team_data = self.access_team(team_name)
+        task_done = team_data.get('total_task_done', None)
         
-        if total_task != 0:
-            ratio = task_done/ total_task
-            return ratio
+        if total_task != 0 and task_done != None:
+            percentage = (task_done/ total_task)*100
+            return percentage
         return 0
     
     def getPendingTask(self):
