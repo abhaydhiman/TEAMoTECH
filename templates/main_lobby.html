@@ -15,238 +15,246 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/lobby.css')}}">
+
 </head>
 <body id="body">
-
-    <!-- ---------------------- 
-        Navbar started ----------->
-    <nav>
-        <div class="nav-wrapper white lighten-2">
-            <a href="#" class="brand-logo purple-text text-darken-2">TEAMoTECH</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down bg-gradient-primary">
-                <li><a href="#">About us</a></li>
-                <li><a href="https://github.com/abhaydhiman/TEAMoTECH" target="_blank">Contribute</a></li>
-                <li><a href="#">Undone</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-    </ul>
-
-    <!-- --------------------- -->
-
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col s12 m12 l12 stretch-card grid-margin">
-                <div class="card horizontal text-gray card-outline-success">
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">{{context.team_name.title()}} <i class="mdi mdi-account-check mdi-24px float-right"></i></h4>
-                        
-                        <h4 class="mb-3" style="font-family: 'Courier New', Courier, monospace;">{{context.username}},{{context.profession}}</h4>
-
-                        <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" style="width: {{context.whole_progress}}%" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="90"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- --------------------------
+    Preloader ----------------- -->
+    <div class="loader-container">
+        <div class="loader"></div>
     </div>
 
-    <!-- Page Layout here -->
-    <div class="row">
-    
-        <div class="col s12 m4 l3">
-            <!-- Note that "m4 l3" was added -->
-            <!-- Grey navigation panel
-    
-                    This content will be:
-                3-columns-wide on large screens,
-                4-columns-wide on medium screens,
-                12-columns-wide on small screens  -->
-            <div class="row">
-                <div class="col s12 m12 stretch-card grid-margin">
-                        <div class="card large card-outline-primary">
-                            <div class="card-content text-gray">
-                                <span class="card-title">Assign Task</span>
-                                <p><i class="mdi mdi-blur"></i> Assign task to any team member</p>
-                                <p><i class="mdi mdi-blur"></i> Set deadlines for each task</p>
-                                <input class="mt-4 mb-4" name="task_description" id="description" placeholder="Task Description" required='required'>
-                                <input class="mb-4" type="text" id="assign_to" name="assign_to" placeholder="Assign to..." required='required'>
+    <div id="start">
+        <!-- ---------------------- 
+            Navbar started ----------->
+        <nav>
+            <div class="nav-wrapper white lighten-2">
+                <a href="#" class="brand-logo purple-text text-darken-2">TEAMoTECH</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down bg-gradient-primary">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="https://github.com/abhaydhiman/TEAMoTECH" target="_blank">Contribute</a></li>
+                    <li><a href="#">Undone</a></li>
+                </ul>
+            </div>
+        </nav>
 
-                                <p class="mt-4">
-                                    <label>
-                                        <input id="checker" type="checkbox" />
-                                        <span>Add Deadline</span>
-                                    </label>
-                                </p>
-                                <input class="mb-4" type="date" id="name2" name="deadline" disabled=''/>
-                                <input class="input-button bg-gradient-primary mt-4 float-right" type="submit" onclick="taskAssign()" value="Assign">
-                            </div>
-                        </div>
-                </div>
-            </div>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+
+        <!-- --------------------- -->
+
+        <div class="container mt-4">
             <div class="row">
-                <div class="col s12 m12">
-                    <div class="card">
+                <div class="col s12 m12 l12 stretch-card grid-margin">
+                    <div class="card horizontal text-gray card-outline-success">
                         <div class="card-body">
-                            <h4 class="card-title" style="text-align: center; font-weight: 600; font-size: x-large;">REPORT</h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th> Name </th>
-                                            <th> Progress </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for report_detail in context.report_details %}
-                                        <tr>
-                                            <td> {{ report_detail.name }}</td>
-                                            <td>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-gradient-{{ report_detail['color'] }}" role="progressbar" style="width: {{report_detail['report']}}%"
-                                                        aria-valuenow="{{ report_detail['report'] }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <h4 class="font-weight-normal mb-3">{{context.team_name.title()}} <i class="mdi mdi-account-check mdi-24px float-right"></i></h4>
+                            
+                            <h4 class="mb-3" style="font-family: 'Courier New', Courier, monospace;">{{context.username}},{{context.profession}}</h4>
+
+                            <div class="progress">
+                                <div class="progress-bar bg-gradient-success" role="progressbar" style="width: {{context.whole_progress}}%" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="90"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div class="col s12 m8 l9">
-            <!-- Note that "m8 l9" was added -->
-            <!-- Teal page content
-    
-                    This content will be:
-                9-columns-wide on large screens,
-                8-columns-wide on medium screens,
-                12-columns-wide on small screens  -->
-            <div class="row">
-                <div class="col s12 m4 stretch-card grid-margin">
-                    <div class="card bg-gradient-danger card-img-holder text-white">
-                        <div class="card-body">
-                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal mb-3">Today's Task Number<i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                            </h4>
-                            <h4 class="mb-4">{{context.today_task_num}}</h4>
-                            <h6 class="card-text">{{context.card_1_data[1]}} by {{context.card_1_data[0]}}%</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4 stretch-card grid-margin">
-                    <div class="card bg-gradient-info card-img-holder text-white">
-                        <div class="card-body">
-                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal mb-3">Today's Performance <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-                            </h4>
-                            <h4 class="mb-4">{{context.sec_card_data.today_ratio}}</h4>
-                            <h6 class="card-text">{{context.sec_card_data.res}} by {{context.sec_card_data.percentage}}%</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4 stretch-card grid-margin">
-                    <div class="card bg-gradient-success card-img-holder text-white">
-                        <div class="card-body">
-                            <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal mb-3">Total Task Number<i class="mdi mdi-diamond mdi-24px float-right"></i>
-                            </h4>
-                            <h4 class="mb-4">{{context.total_task_num}}</h4>
-                            <h6 class="card-text">Pending Task :- {{context.pending_task_num}}</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 m7 stretch-card">
-                    <div class="card medium">
-                        <div class="card-body">
-                            <div class="clearfix">
-                                <h4 class="card-title float-left">Weekly Statistics</h4>
-                                <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right mb-3">
+
+        <!-- Page Layout here -->
+        <div class="row">
+        
+            <div class="col s12 m4 l3">
+                <!-- Note that "m4 l3" was added -->
+                <!-- Grey navigation panel
+        
+                        This content will be:
+                    3-columns-wide on large screens,
+                    4-columns-wide on medium screens,
+                    12-columns-wide on small screens  -->
+                <div class="row">
+                    <div class="col s12 m12 stretch-card grid-margin">
+                            <div class="card large card-outline-primary">
+                                <div class="card-content text-gray">
+                                    <span class="card-title">Assign Task</span>
+                                    <p><i class="mdi mdi-blur"></i> Assign task to any team member</p>
+                                    <p><i class="mdi mdi-blur"></i> Set deadlines for each task</p>
+                                    <input class="mt-4 mb-4" name="task_description" id="description" placeholder="Task Description" required='required'>
+                                    <input class="mb-4" type="text" id="assign_to" name="assign_to" placeholder="Assign to..." required='required'>
+
+                                    <p class="mt-4">
+                                        <label>
+                                            <input id="checker" type="checkbox" />
+                                            <span>Add Deadline</span>
+                                        </label>
+                                    </p>
+                                    <input class="mb-4" type="date" id="name2" name="deadline" disabled=''/>
+                                    <input class="input-button bg-gradient-primary mt-4 float-right" type="submit" onclick="taskAssign()" value="Assign">
                                 </div>
                             </div>
-                            <canvas id="visit-sale-chart" class="mt-4 pb-1"></canvas>
-                        </div>
                     </div>
-                    <!-- <div class="card medium blue-grey darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
-                        </div>
-                    </div> -->
                 </div>
-                <div class="col s12 m5 stretch-card">
-                    <div class="card medium">
-                        <div class="card-body">
-                            <div class="clearfix">
-                                <h4 class="card-title float-left">Performers Contributions</h4>
-                            </div>
-                            <canvas id="traffic-chart" class="mt-4"></canvas>
-                            <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" style="text-align: center; font-weight: 600; font-size: x-large;">REPORT</h4>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th> Name </th>
+                                                <th> Progress </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for report_detail in context.report_details %}
+                                            <tr>
+                                                <td> {{ report_detail.name }}</td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-gradient-{{ report_detail['color'] }}" role="progressbar" style="width: {{report_detail['report']}}%"
+                                                            aria-valuenow="{{ report_detail['report'] }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="task-details-id">
-                <div class="col s12 grid-margin">
-                    <div class="card card-outline-primary">
-                        <div class="card-body">
-                            <h4 class="card-title">Task Details</h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th> Assignee </th>
-                                            <th> Task </th>
-                                            <th> Deadline </th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for details in context.task_details %}
-                                        <tr>
-                                            <td id="name_{{details.index}}" >{{details.name}}</td>
-                                            <td id="task_{{details.index}}" >{{details.task}}</td>
-                                            <td> {{details.deadline}} </td>
-                                            <td><input class="input-button bg-gradient-success float-right" type="submit" id="{{details.index}}" onclick="taskDetails(this.id)" value="Done"></td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+        
+            <div class="col s12 m8 l9">
+                <!-- Note that "m8 l9" was added -->
+                <!-- Teal page content
+        
+                        This content will be:
+                    9-columns-wide on large screens,
+                    8-columns-wide on medium screens,
+                    12-columns-wide on small screens  -->
+                <div class="row">
+                    <div class="col s12 m4 stretch-card grid-margin">
+                        <div class="card bg-gradient-danger card-img-holder text-white">
+                            <div class="card-body">
+                                <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                                <h4 class="font-weight-normal mb-3">Today's Task Number<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                                </h4>
+                                <h4 class="mb-4">{{context.today_task_num}}</h4>
+                                <h6 class="card-text">{{context.card_1_data[1]}} by {{context.card_1_data[0]}}%</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4 stretch-card grid-margin">
+                        <div class="card bg-gradient-info card-img-holder text-white">
+                            <div class="card-body">
+                                <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                                <h4 class="font-weight-normal mb-3">Today's Performance <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                                </h4>
+                                <h4 class="mb-4">{{context.sec_card_data.today_ratio}}</h4>
+                                <h6 class="card-text">{{context.sec_card_data.res}} by {{context.sec_card_data.percentage}}%</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4 stretch-card grid-margin">
+                        <div class="card bg-gradient-success card-img-holder text-white">
+                            <div class="card-body">
+                                <img src="{{url_for('static', filename='images/circle.png')}}" class="card-img-absolute" alt="circle-image" />
+                                <h4 class="font-weight-normal mb-3">Total Task Number<i class="mdi mdi-diamond mdi-24px float-right"></i>
+                                </h4>
+                                <h4 class="mb-4">{{context.total_task_num}}</h4>
+                                <h6 class="card-text">Pending Task :- {{context.pending_task_num}}</h6>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
-            <!-- <div class="row">
-                <div class="col s12 m12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="clearfix">
-                                <h4 class="card-title float-left">Members Statistics</h4>
-                                <div id="visit-sale-line-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right">
+                <div class="row">
+                    <div class="col s12 m7 stretch-card">
+                        <div class="card medium">
+                            <div class="card-body">
+                                <div class="clearfix">
+                                    <h4 class="card-title float-left">Weekly Statistics</h4>
+                                    <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right mb-3">
+                                    </div>
+                                </div>
+                                <canvas id="visit-sale-chart" class="mt-4 pb-1"></canvas>
+                            </div>
+                        </div>
+                        <!-- <div class="card medium blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Card Title</span>
+                                <p>I am a very simple card. I am good at containing small bits of information.
+                                    I am convenient because I require little markup to use effectively.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col s12 m5 stretch-card">
+                        <div class="card medium">
+                            <div class="card-body">
+                                <div class="clearfix">
+                                    <h4 class="card-title float-left">Performers Contributions</h4>
+                                </div>
+                                <canvas id="traffic-chart" class="mt-4"></canvas>
+                                <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4">
                                 </div>
                             </div>
-                            <canvas id="visit-sale-line-chart" class="mt-4"></canvas>
                         </div>
                     </div>
                 </div>
-            </div> -->
+                <div class="row" id="task-details-id">
+                    <div class="col s12 grid-margin">
+                        <div class="card card-outline-primary">
+                            <div class="card-body">
+                                <h4 class="card-title">Task Details</h4>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th> Assignee </th>
+                                                <th> Task </th>
+                                                <th> Deadline </th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for details in context.task_details %}
+                                            <tr>
+                                                <td id="name_{{details.index}}" >{{details.name}}</td>
+                                                <td id="task_{{details.index}}" >{{details.task}}</td>
+                                                <td> {{details.deadline}} </td>
+                                                <td><input class="input-button bg-gradient-success float-right" type="submit" id="{{details.index}}" onclick="taskDetails(this.id)" value="Done"></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                <!-- <div class="row">
+                    <div class="col s12 m12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="clearfix">
+                                    <h4 class="card-title float-left">Members Statistics</h4>
+                                    <div id="visit-sale-line-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right">
+                                    </div>
+                                </div>
+                                <canvas id="visit-sale-line-chart" class="mt-4"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
         </div>
     </div>
     <!-- Compiled and minified JavaScript -->
@@ -255,6 +263,15 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+    <!-- ------------------------- -->
+    <script>
+        $(window).on("load", function () {
+            console.log('hi');
+            $(".loader-container").fadeOut(1000);
+        });
+    </script>
+    <!-- ------------------------- -->
 
     <!-- ------------------------- -->
     <script>
@@ -270,6 +287,7 @@
                 $('#body').html(response);
             }
         });
+        window.location.reload(true);
         return false;
     }
     </script>
@@ -289,6 +307,7 @@
                 $('#body').html(response);
             }
         });
+        window.location.reload(true);
         return false;
     }
     </script>
