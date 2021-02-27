@@ -199,7 +199,6 @@ body {
 	transform: translate(-50%, -20%);
 }
 
-
 .minecard{
   position: absolute;
   top: 40%;
@@ -295,6 +294,11 @@ body {
   margin-left: 0px;
 }
 
+.your_teams {
+  position: relative;
+  top: 20rem;
+}
+
 @media screen and (max-width: 991.98px) {
   .custom-section .col-md-6 img {
     width: 100%;
@@ -326,7 +330,97 @@ body {
   }
   .adjust {
   margin-left: 50px;
+  }
+  .your_teams {
+  top: 10rem;
+  }
 }
+
+@media screen and (max-width: 770px) {
+  .custom-section .col-md-6 img {
+    width: 60%;
+    transform: translateY(-40%);
+    left: 50%; 
+  } 
+  .custom-section .col-md-6 .h3 {
+    font-size: 60px;
+    font-weight: 400;
+    left: 5%;
+  }
+  .custom-section .col-md-6 .p {
+    margin-left: 5%;
+    font-size: 10px;
+    margin-top: 1px;
+  }
+  .custom-section .col-md-6 a {
+    margin-left: 5%;
+    font-size: 12px;
+    padding: 6px 12px;
+    margin-top: 14px;
+  }
+  .main {
+  height: 90vh;
+  }
+  .sidebar {
+  height: 90%;
+  }
+  .topbar {
+    height: 15%;
+  }
+  .minecard {
+  position: relative;
+  top: 40%;
+  margin: 10px 10px;
+  padding: 4px 12px;
+  font-size: 10px;
+  }
+  .adjust {
+  margin-left: 0px;
+}
+  .head__custom-nav .navbar-brand span {
+  font-weight: 100;
+  font-size: 50px;
+  left: 25%;
+  top: 0;
+  transform: translateY(-30%);
+  }
+  .head__custom-nav a img {
+    visibility: hidden;
+  }
+  .your_teams {
+  top: 4rem;
+  }
+  .box{
+	width: 160px;
+	height: 240px;
+	margin: 20px 20px;
+  }
+  .box input{
+    margin:10px 0;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+  }
+  .slide-details p:nth-child(1){
+	font-size: 16px;
+	font-weight: 600;
+  }
+  .slide-details p:nth-child(2){
+    font-size: 12px;
+  }
+  .myinput{
+  margin: 20px 0;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  }
+  .inputbutton {
+  margin:20px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+	font-weight: bold;
+  }
 }
 
 /* @media screen and (max-width: 991.98px) {
