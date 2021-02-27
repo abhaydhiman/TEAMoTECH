@@ -67,7 +67,7 @@
     </div>
 
     {% if choice %}
-        <div style="position: relative; top: 20rem">
+        <div class="your_teams">
             <div class="container">
                 <center>
                     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -110,7 +110,7 @@
                 <div class="teamCreation4"></div>
                 <h1 style="position: absolute; top: 10%; left: 40%;">Create Team</h1>
                 <div class="row" id="add_to_me">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-4">
                         <div class="box box-img01">
                             <div class="slide-details">
                                 <p>Team Leader</p>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3" id="remove_this">
+                    <div class="col-md-3 col-sm-4" id="remove_this">
                         <input class="minecard" type="button" id="more_fields" onclick="add_fields();" value="Add More" />
                     </div>
                 </div>
@@ -163,7 +163,7 @@
 
             var d = document.getElementById("add_to_me");
 
-            d.innerHTML += "<div class='col-md-3 adjust'> <div div class='box box-img06' > <div class='slide-details'> <p>Team Member</p> <input name='username' type='text' placeholder='User Name' required='required'> <input name='email' type='text' placeholder='email' required='required'> <input name='profession' type='text' placeholder='Profession' required='required'> </div> </div> </div><div class='col-sm-2' id='remove_this'> <input class='minecard' type = 'button' id = 'more_fields' onclick = 'add_fields();' value = 'Add More' /> </div >";
+            d.innerHTML += "<div class='col-md-3 col-sm-4 adjust'> <div div class='box box-img06' > <div class='slide-details'> <p>Team Member</p> <input name='username' type='text' placeholder='User Name' required='required'> <input name='email' type='text' placeholder='email' required='required'> <input name='profession' type='text' placeholder='Profession' required='required'> </div> </div> </div><div class='col-sm-2' id='remove_this'> <input class='minecard' type = 'button' id = 'more_fields' onclick = 'add_fields();' value = 'Add More' /> </div >";
         }
     </script>
 </body>
