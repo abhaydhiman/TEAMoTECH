@@ -11,8 +11,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/lightslider.css')}}"> -->
-
     <title>Team Work</title>
 </head>
 
@@ -51,16 +49,16 @@
             </nav>
         </header>
     </div>
+
     <div class="container">
-        
         <div class="row custom-section d-flex align-items-center">
-            <div class="col-12 col-lg-4">
-                <h3 style="font-size: 100px;">Team</h3>
-                <h3 style="font-size: 100px;">Work</h3>
-                <p>A great platform to work in a team!!</p>
+            <div class="col-12 col-md-6">
+                <h3 class="h3">Team</h3>
+                <h3 class="h3">Work</h3>
+                <p class="p">A great platform to work in a team!!</p>
                 <a href="#">Learn more</a>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-md-6">
                 <img src="{{url_for('static', filename='images/Team spirit-amico.png')}}" alt="Team process banner">
             </div>
         </div>
@@ -165,7 +163,7 @@
 
             var d = document.getElementById("add_to_me");
 
-            d.innerHTML += "<div class='col-md-3'> <div div class='box box-img06' > <div class='slide-details'> <p>Team Member</p> <input name='username' type='text' placeholder='User Name' required='required'> <input name='email' type='text' placeholder='email' required='required'> <input name='profession' type='text' placeholder='Profession' required='required'> </div> </div> </div><div class='col-sm-2' id='remove_this'> <input class='minecard' type = 'button' id = 'more_fields' onclick = 'add_fields();' value = 'Add More' /> </div >";
+            d.innerHTML += "<div class='col-md-3 adjust'> <div div class='box box-img06' > <div class='slide-details'> <p>Team Member</p> <input name='username' type='text' placeholder='User Name' required='required'> <input name='email' type='text' placeholder='email' required='required'> <input name='profession' type='text' placeholder='Profession' required='required'> </div> </div> </div><div class='col-sm-2' id='remove_this'> <input class='minecard' type = 'button' id = 'more_fields' onclick = 'add_fields();' value = 'Add More' /> </div >";
         }
     </script>
 </body>
