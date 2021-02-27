@@ -152,3 +152,87 @@ a{
   text-decoration:none;
   color:#2c7715;
 }
+
+@media screen and (max-width: 956px) {
+    .white-panel{
+        right: calc(50%);
+        width: calc(60% - 10px);
+    }
+    .register-info-box {
+        margin-right: 80px;
+    }
+    .register-info-box h2{
+        font-size: 26px;
+    }
+    .login-info-box h2{
+        font-size: 24px;
+    }
+    .login-reg-panel #label-login, 
+    .login-reg-panel #label-register{
+        border:1px solid #9E9E9E;
+        padding:4px 4px;
+        width:120px;
+        display:block;
+        text-align:center;
+        border-radius:8px;
+        cursor:pointer;
+        font-weight: 450;
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 810px) {
+    .login-reg-panel{
+        top: 0;
+        transform: translateY(-20%);
+    }
+    .white-panel{
+        width:80%;
+        left: 10%;
+        top: 45%
+    }
+    .register-info-box {
+        right: 1%;
+        top: 30%;
+    }
+    .register-info-box h2{
+        display: none;
+    }
+    .login-info-box {
+        right: 1%;
+        top: 30%;
+    }
+    .login-info-box h2{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 541px) {
+    .login-reg-panel{
+        top: 0;
+        transform: translateY(-20%);
+    }
+    .white-panel{
+        width:120%;
+        left: -10%;
+        top: 45%;
+        height: 100%;
+    }
+    .register-info-box {
+        width:30%;
+        padding:0 50px;
+        right: 1%;
+        top: 30%;
+        position: absolute;
+        text-align:left;
+    }
+    .register-info-box h2{
+        display: none;
+    }
+    .login-info-box {
+        right: 1%;
+        top: 30%;
+    }
+    .login-info-box h2{
+        display: none;
+    }
+}
