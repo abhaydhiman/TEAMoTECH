@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,7 +16,7 @@
 </head>
 
 <body>
-    
+<div class="starter">
     <div class="main"></div>
     <div class="container">
         <header class="head my-3">
@@ -67,9 +68,9 @@
     </div>
 
     {% if choice %}
-        <div class="your_teams">
-            <div class="container">
-                <center>
+    <div class="your_teams">
+        <div class="container">
+            <!-- <center>
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
@@ -77,28 +78,29 @@
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
-                </center>
-                <h1><center>Your Teams</center></h1>
-                <div class="row">
-                    {% for i in range(team_number) %}
-                        <div class="col-md-3">
-                            <form id="{{i}}" action="{{url_for('main_lobby')}}" method="POST">
-                                <a href="#" onclick="document.getElementById('{{i}}').submit();" type="submit">
-                                    <div class="box box-img02">
-                                        <div class="slide-details">
-                                            <p>Team Name</p>
-                                            <p>{{ team_name_ls[i] }}</p>
-                                            <input name="team_name" type="text" style="display: none;" value="{{ team_name_ls[i] }}">
-                                        </div>
-                                        <div class="user user-img01"></div>
-                                    </div>
-                                </a>
-                            </form>
-                        </div>
-                    {% endfor %}
+                </center> -->
+            <h1 class="your_team mt-4 pt-4">Your Teams</h1>
+            <div class="row mt-2 pt-2">
+                {% for i in range(team_number) %}
+                <div class="col-md-3 col-sm-4">
+                    <form id="{{i}}" action="{{url_for('main_lobby')}}" method="POST">
+                        <a href="#" onclick="document.getElementById('{{i}}').submit();" type="submit">
+                            <div class="box box-img02">
+                                <div class="slide-details">
+                                    <p>Team Name</p>
+                                    <p>{{ team_name_ls[i] }}</p>
+                                    <input name="team_name" type="text" style="display: none;"
+                                        value="{{ team_name_ls[i] }}">
+                                </div>
+                                <div class="user user-img01"></div>
+                            </div>
+                        </a>
+                    </form>
                 </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
     {% endif %}
 
     <form action="{{url_for('lobby')}}" method="POST">
@@ -108,23 +110,27 @@
                 <div class="teamCreation2"></div>
                 <div class="teamCreation3"></div>
                 <div class="teamCreation4"></div>
-                <h1 style="position: absolute; top: 10%; left: 40%;">Create Team</h1>
+                <h1 class="create_team">Create Team</h1>
                 <div class="row" id="add_to_me">
                     <div class="col-md-3 col-sm-4">
                         <div class="box box-img01">
                             <div class="slide-details">
                                 <p>Team Leader</p>
                                 <input type="text" name="email" value="{{email}}" style="display: none;">
-                                <input name="TeamLead_username" type="text" value="{{username}}" placeholder="User Name" required='required'>
-                                <input name="TeamLead_profession" type="text" placeholder="Profession" required='required'>
+                                <input name="TeamLead_username" type="text" value="{{username}}" placeholder="User Name"
+                                    required='required'>
+                                <input name="TeamLead_profession" type="text" placeholder="Profession"
+                                    required='required'>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-4" id="remove_this">
-                        <input class="minecard" type="button" id="more_fields" onclick="add_fields();" value="Add More" />
+                        <input class="minecard" type="button" id="more_fields" onclick="add_fields();"
+                            value="Add More" />
                     </div>
                 </div>
-                <div class="row mt-4 pt-4 mb-3 pb-3 text-right" style="position:relative; margin-top:6rem !important; padding-top: 10rem;">
+                <div class="row mt-4 pt-4 mb-3 pb-3 text-right"
+                    style="position:relative; margin-top:6rem !important; padding-top: 10rem;">
                     <div class="col-lg-12">
                         <input name="team_name" class="myinput" type="text" placeholder="TeamName" required='required'>
                         <input onclick="lobbyFunc();" class="inputbutton" type="submit" value="CreateLobby">
@@ -133,6 +139,7 @@
             </div>
         </section>
     </form>
+</div>
 
 
     <!-- Optional JavaScript -->
