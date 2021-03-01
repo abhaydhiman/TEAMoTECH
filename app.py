@@ -78,7 +78,7 @@ class Caller:
         return context
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('login_page.html')
 
@@ -135,4 +135,4 @@ def taskDone():
     return render_template('main_lobby.html', context=context)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
