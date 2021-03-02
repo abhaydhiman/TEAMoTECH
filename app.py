@@ -1,4 +1,4 @@
-import json, os
+# import json, os
 from flask import Flask, render_template, request, session
 # from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner, removeTask
 
@@ -134,5 +134,5 @@ def index():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    port = 8081
+    app.run(port=port)
