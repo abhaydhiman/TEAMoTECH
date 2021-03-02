@@ -2,7 +2,6 @@ import json, os
 from flask import Flask, render_template, request, session
 from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner, removeTask
 
-app = Flask(__name__)
 
 obj = User()
 
@@ -23,30 +22,31 @@ class Caller:
         sec_card_data = obj.sec_card_data()
         data_seven_days = obj.prevSevDays()
         print(data_seven_days)
-        
+
         return {'team_name': team_name, 'username': username,
-                'profession': profession, 'whole_progress': whole_progress,'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
+                'profession': profession, 'whole_progress': whole_progress, 'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
                 'report_details': report_details, 'pending_task_num': pending_task_num, 'sec_card_data': sec_card_data, 'seven_days': data_seven_days,
                 }
-    
+
     def for_assign_task(self):
         task_description = request.args.get('task_description')
         assign_to = request.args.get('assign_to')
         deadline = request.args.get('deadline')
         team_name = obj.team_name
         is_person_exist = obj.is_person_exist(team_name, assign_to)
-        
+
         if deadline == '':
             deadline = None
-        
+
         if is_person_exist:
             obj.date_task_tracker(team_name, task_description)
-            task_assigner(obj, team_name, task_description, assign_to, deadline)
+            task_assigner(obj, team_name, task_description,
+                          assign_to, deadline)
             total_task_assigner(obj, team_name, task_description)
-        
+
         context = self.for_main_lobby(team_name)
         return render_template('main_lobby.html', context=context)
-    
+
     def for_lobby(self):
         email = obj.email
         TeamLead_username = request.form['TeamLead_username']
@@ -55,7 +55,7 @@ class Caller:
         TeamMem_username = request.form.getlist('username')
         TeamMem_email = request.form.getlist('email')
         TeamMem_profession = request.form.getlist('profession')
-        
+
         result = obj.get_client(email, False)
         context = {
             "TeamLead_username": TeamLead_username,
@@ -65,9 +65,9 @@ class Caller:
             "TeamMem_email": TeamMem_email,
             "TeamMem_profession": TeamMem_profession,
         }
-        
+
         return lobby_check(obj, result, email, context)
-    
+
     def for_task_done(self, team_name, data):
         name = data.get('name')
         task = data.get('task')
@@ -75,6 +75,8 @@ class Caller:
         context = self.for_main_lobby(team_name)
         return context
 
+
+app = Flask(__name__)
 
 @app.route('/')
 def index():
