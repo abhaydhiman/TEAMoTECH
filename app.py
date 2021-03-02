@@ -134,5 +134,4 @@ def index():
 
 
 if __name__ == "__main__":
-    port = 8081
-    app.run(port=port)
+    app.run()
