@@ -1,13 +1,11 @@
 # Code for handling database for users that are logged in our site.
 import pymongo
-import datetime, os
+import datetime
 from flask import render_template, abort, url_for, redirect, request, flash
 from datetime import date, timedelta
-from boto.s3.connection import S3Connection
 
-
-uri = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
-client = pymongo.MongoClient(uri)
+client = pymongo.MongoClient(
+    "mongodb+srv://abhay:9253371071@team-o-tech.qjlcj.mongodb.net/team-o-tech?retryWrites=true")
 
 mydb = client['Main_project']
 information = mydb.theApp
