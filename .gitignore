@@ -1,1 +1,10 @@
 **/__pycache__/
+.vscode
+static/assets/
+static/css/lightslider.css
+static/js/JQuery3.3.1.js
+static/js/lightslider.js
+static/js/lobby.js
+static/js/script.js
+static/scss/
+static/vendors/
