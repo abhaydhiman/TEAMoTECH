@@ -132,6 +132,7 @@ def taskDone():
     context = caller.for_task_done(team_name, data)
     return render_template('main_lobby.html', context=context)
 
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
