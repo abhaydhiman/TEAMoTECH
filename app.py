@@ -24,7 +24,7 @@ class Caller:
         pending_task_num = obj.getPendingTask()
         sec_card_data = obj.sec_card_data()
         data_seven_days = obj.prevSevDays()
-        print(data_seven_days)
+        # print(data_seven_days)
 
         return {'team_name': team_name, 'username': username,
                 'profession': profession, 'whole_progress': whole_progress, 'total_task_num': total_task_num, 'today_task_num': today_task_num, 'card_1_data': card_1_data, 'task_details': task_details,
@@ -136,4 +136,5 @@ def taskDone():
     return render_template('main_lobby.html', context=context)
 
 
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
