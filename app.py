@@ -136,5 +136,4 @@ def taskDone():
     return render_template('main_lobby.html', context=context)
 
 
-if __name__ == "__main__":
-    app.run()
+app.run()
