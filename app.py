@@ -1,10 +1,10 @@
-import os, json
-from flask import Flask, render_template, request, redirect, abort, session
+import json
+from flask import Flask, render_template, request, session
 from login_app.login import User, login_check, register_check, lobby_check, part_of_homepage, task_assigner, total_task_assigner, removeTask
 
 app = Flask(__name__)
 
-app.secret_key = os.urandom(24)
+# app.secret_key = os.urandom(24)
 
 obj = User()
 
